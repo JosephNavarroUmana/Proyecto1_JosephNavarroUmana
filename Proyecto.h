@@ -5,7 +5,7 @@ using namespace std;
 const int LIMIT_MATRIZ = 6;
 const int NUMERO_HORARIOS = 3;
 const int NUMERO_SALAS = 4;
-
+const int NUMERO_PELICULAS = 4;
 class pelicula
 {
 private:
@@ -59,7 +59,9 @@ public:
 	pelicula movie[4];
 	cinema();
 	~cinema();
-	void toString(int peliculaSelecconada, int horario);
+	void toString(int peliculaSeleccionada, int horario);
 	void setUbicacion(int a, int b, int c, int d);
+	void factura();
+	void menu(pelicula coso[], horarios vec[], sala vector[]);
 	
 };

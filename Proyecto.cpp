@@ -137,12 +137,124 @@ void cinema::toString(int peliculaSeleccionada, int horario) {
 	cout << endl;
 }
 
-
 void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
 	if (matriz[sala][fila][columna][horario] == 1) {
 		cout << "Ese espacio ya esta ocupado elija otro "<<endl;
 	}
 	else {
 		matriz[sala][fila][columna][horario] = 1;
+	}
+}
+
+void cinema::factura()
+{
+
+}
+
+void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
+{
+	int menu = 0;
+	while (menu != 4) {
+
+		system("cls");
+		cout << "\n==========+==========+==========+==========+==========\n";
+		cout << "            MENU DE OPCIONES\n";
+		cout << "==========+==========+==========+==========+==========\n";
+		cout << "Archivo" << endl;
+		cout << "Mantenimiento" << endl;
+		cout << "Reserva" << endl;
+		cout << "Venta" << endl;
+		cout << "==========+==========+==========+==========+==========\n";
+		cout << "Seleccione una opcion: ";
+		cin >> menu;
+
+		system("cls");
+		cout << "\n==========+==========+==========+==========+==========\n";
+
+		switch (menu) {
+		case 1:
+			//archivo
+			cout << "Acerca de " << endl;
+			cout << "Salir" << endl;
+			cin >> menu;
+			switch (menu)
+			{
+			case 1:
+				cout << "Desarrollador: Joseph Navarro Umana\n";
+				cout << "Creador de GTA 7\n";
+				cout << "Fan de los easter egg\n";
+				break;
+			case 2:
+				menu = 4;
+			default:
+				break;
+			}
+			break;
+		case 2:
+			//mantenimiento
+			cout << "Peliculas" << endl;
+			cout << "Horas de funciones" << endl;
+			cout << "Salas" << endl;
+			cin >> menu;
+
+			switch (menu)
+			{
+			case 1:
+
+				for (int i = 0; i < NUMERO_PELICULAS; i++){
+					coso[i].toString();
+					cout << endl;
+				}
+				break;
+			case 2:
+				cout << "2:00 pm " << endl;
+				cout << "5:00 pm " << endl;
+				cout << "7:00 pm " << endl;
+				break;
+			case 3:
+				menu = 4;
+				break;
+			default:
+				break;
+			}
+			break;
+
+		case 3:
+			//reservar
+			int peliculaSeleccionada, fila, columna, horario;
+			for (int i = 0; i < NUMERO_PELICULAS; i++) {
+				cout << coso[i].getNombre() << endl;
+			}
+			cin >> peliculaSeleccionada;
+
+			cout << "La sala para la pelicula es: " << coso[peliculaSeleccionada - 1].getNombre() << endl;
+
+			cout << "Seleccione la hora: " << endl;
+			cout << "2:00 pm " << endl;
+			cout << "5:00 pm " << endl;
+			cout << "7:00 pm " << endl;
+			cin >> horario;
+			cout << "El horario es el numero " << vec[horario - 1].getFirtsHorario() << endl;
+
+			cout << "Seleccione la butaca " << endl;
+			toString(peliculaSeleccionada - 1, horario - 1);
+			cout << "Escriba la fila: ";
+			cin >> fila;
+			cout << "Escriba la columna: ";
+			cin >> columna;
+			setUbicacion(peliculaSeleccionada - 1, fila - 1, columna - 1, horario - 1);
+			toString(peliculaSeleccionada - 1, horario - 1);
+
+			break;
+		case 4:
+			//venta
+			break;
+		default:
+			cout << "Error.\n";
+			break;
+		}
+		if (menu != 4) {
+			system("pause");
+		}
 	}
 }
