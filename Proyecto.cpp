@@ -1,47 +1,5 @@
 #include"Proyecto.h"
 
-void menu() {
-
-	int menu;
-	cout << "\t\tMenu" << endl;
-	cout << "Archivo" << endl;
-	cout << "Mantenimiento" << endl;
-	cout << "Reserva" << endl;
-	cout << "Venta" << endl;
-	cin >> menu;
-
-	switch (menu)
-	{
-	case 1:
-		//archivo
-		cout << "Acerca de " << endl;
-		cout << "Salir" << endl;
-		cin >> menu;
-		/*switch (menu)
-		{
-		case 1:
-			cout << "Hola";
-			break;
-		case 2:
-			cout << "Adios";
-		default:
-			break;
-		}*/
-		break;
-	case 2:
-		//mantenimiento
-		break;
-	case 3:
-		//reservar
-		break;
-	case 4:
-		//venta
-		break;
-	default:
-		break;
-	}
-}
-
 pelicula::pelicula()
 {
 	nombre = " ";
@@ -127,77 +85,64 @@ horarios::~horarios()
 {
 }
 ///
-cinema::cinema()
-{
-	string peli[4] = { "bts","be","s","g" };
-
-	for (int i = 0; i < 4; i++){
-		movie[i].setNombre(peli[i]);
-	}
-
-	for (int i = 0; i < 3; i++){
-		for (int j = 0; j < 3; j++) {
-			matriz[i][j] = 0;
+cinema::cinema() {
+	for (int i = 0; i < NUMERO_SALAS; i++) {
+		for (int j = 0; j < NUMERO_HORARIOS; j++) {
+			for (int k = 0; k < LIMIT_MATRIZ; k++) {
+				for (int l = 0; l < LIMIT_MATRIZ; l++) {
+					matriz[i][k][l][j] = 0;  // Ajuste correcto de las dimensiones
+				}
+			}
 		}
 	}
 }
+
 
 cinema::~cinema()
 {
 }
 
-void cinema::toString()
-{
+void cinema::toString(int peliculaSeleccionada, int horario) {
+	cout << "Sala " << peliculaSeleccionada + 1 << ":\n";
 	cout << "  +";
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < LIMIT_MATRIZ; ++i) {
 		cout << "---+";
 	}
 	cout << endl;
 
-	for (int i = 0; i < 3; ++i) {
+	for (int i = 0; i < LIMIT_MATRIZ; ++i) {
 		cout << i + 1 << " |";
 
-		for (int j = 0; j < 3; ++j) {
-			if ((i + j) % 2 == 0) {
-				cout << "\033[47m"; // Fondo blanco
+		for (int j = 0; j < LIMIT_MATRIZ; ++j) {
+			if (matriz[peliculaSeleccionada][i][j][horario] == 1) {
+				cout << "\033[41m 1 \033[0m|"; // Fondo rojo para butaca ocupada
 			}
 			else {
-				cout << "\033[40m"; // Fondo negro
+				cout << "\033[42m 0 \033[0m|"; // Fondo verde para butaca libre
 			}
-
-			if ((i + j) % 2 == 0) {
-				cout << "\033[30m"; // Texto negro
-			}
-			else {
-				cout << "\033[37m"; // Texto blanco
-			}
-
-			cout << " " << matriz[i][j] << " ";
-
-			cout << "\033[0m" << "|";
 		}
 		cout << endl;
 
 		cout << "  +";
-		for (int k = 0; k < 3; ++k) {
+		for (int k = 0; k < LIMIT_MATRIZ; ++k) {
 			cout << "---+";
 		}
 		cout << endl;
 	}
 
 	cout << "   ";
-	for (char c = 'A'; c < 'A' + 3; ++c) {
-		cout << " \t" << c << "  ";
+	for (char c = 'A'; c < 'A' + LIMIT_MATRIZ; ++c) {
+		cout << " " << c << "  ";
 	}
 	cout << endl;
-
 }
 
-void cinema::setUbicacion(int a, int b) {
-	if (matriz[a][b] == 1) {
+
+void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
+	if (matriz[sala][fila][columna][horario] == 1) {
 		cout << "Ese espacio ya esta ocupado elija otro "<<endl;
 	}
 	else {
-		matriz[a][b] = 1;
+		matriz[sala][fila][columna][horario] = 1;
 	}
 }

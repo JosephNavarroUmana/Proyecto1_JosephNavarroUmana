@@ -2,6 +2,10 @@
 #include<iostream>
 using namespace std;
 
+const int LIMIT_MATRIZ = 6;
+const int NUMERO_HORARIOS = 3;
+const int NUMERO_SALAS = 4;
+
 class pelicula
 {
 private:
@@ -49,13 +53,13 @@ public:
 class cinema
 {
 private:
-	int matriz[3][3];
+	int matriz[NUMERO_SALAS][LIMIT_MATRIZ][LIMIT_MATRIZ][NUMERO_HORARIOS];
 	
 public:
 	pelicula movie[4];
 	cinema();
 	~cinema();
-	void toString();
-	void setUbicacion(int a, int b);
+	void toString(int peliculaSelecconada, int horario);
+	void setUbicacion(int a, int b, int c, int d);
 	
 };

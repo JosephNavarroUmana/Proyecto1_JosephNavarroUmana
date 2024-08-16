@@ -97,35 +97,31 @@ int main()
 
 		case 3:
 			//reservar
-			int a;
+			int peliculaSeleccionada,fila,columna,horario;
 			cout << "Elija la pelicula: " << endl;
 			cout<<beeMovie.getNombre()<<endl;
 			cout<<adastra.getNombre()<<endl;
 			cout<<bonderlands.getNombre()<<endl;
 			cout << skibiriToilet.getNombre() << endl;
-			cin >> a;
+			cin >> peliculaSeleccionada;
 			
-			cout << "La sala para la pelicula es: " << a << endl;
+			cout << "La sala para la pelicula es: " << coso[peliculaSeleccionada-1].getNombre() << endl;
 
 			cout << "Seleccione la hora: " << endl;
 			cout << "2:00 pm " << endl;
 			cout << "5:00 pm " << endl;
 			cout << "7:00 pm " << endl;
-			cin >> a;
+			cin >> horario;
+			cout << "El horario es el numero " << vec[horario-1].getFirtsHorario() << endl;
 			
-			cout << "El horario es el numero " << a << endl;
-			
-			int aux;
 			cout << "Seleccione la butaca " << endl;
-			salaDeCine.toString();
+			salaDeCine.toString(peliculaSeleccionada-1, horario-1);
 			cout << "Escriba la fila: ";
-			cin >> a;
+			cin >> fila;
 			cout << "Escriba la columna: ";
-			cin >> aux;
-			salaDeCine.setUbicacion(aux-1, a-1);
-			salaDeCine.toString();
-
-			
+			cin >> columna;
+			salaDeCine.setUbicacion(peliculaSeleccionada-1, fila-1, columna-1, horario-1);
+			salaDeCine.toString(peliculaSeleccionada - 1, horario - 1);			
 
 			break;
 		case 4:
