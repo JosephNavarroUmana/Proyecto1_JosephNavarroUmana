@@ -35,6 +35,7 @@ public:
 	sala();
 	sala(int numero_, string butacas_, int precio_);
 	int getNumero();
+	void toString();
 	~sala();
 };
 
@@ -48,6 +49,7 @@ public:
 	horarios();
 	horarios(string fecha_, string firtsHorario, string segundoHorario);
 	string getFirtsHorario();
+	void toString();
 	~horarios();
 };
 
@@ -65,4 +67,18 @@ public:
 	void factura();
 	void menu(pelicula coso[], horarios vec[], sala vector[]);
 	
+};
+
+class factura {
+private:
+	int cedula;
+	int tarjeta;
+public:
+	factura();
+	~factura();
+	void setCedula(int cedula_);
+	void setTarjeta(int tarjeta_);
+	int getCedula();
+	int getTarjeta();
+	void voucher();
 };

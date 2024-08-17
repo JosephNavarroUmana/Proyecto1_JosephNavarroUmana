@@ -58,6 +58,16 @@ int sala::getNumero()
 	return numero;
 }
 
+void sala::toString()
+{
+	cout << "Numero de sala --> " << numero << endl;
+	cout << "Numero de butacas --> " << butaca << endl;
+	cout << "Precio de la sala --> " << precio << endl;
+	cout << endl;
+}
+
+
+
 sala::~sala()
 {
 }
@@ -78,6 +88,11 @@ horarios::horarios(string fecha_, string firtsHorario_, string segundoHorario_) 
 string horarios::getFirtsHorario()
 {
 	return firtsHorario;
+}
+void horarios::toString()
+{
+	cout << "Fecha --> " << fecha << endl;
+	cout << "Horario de inicio " << firtsHorario << " finaliza a las " << segundoHorario << endl;
 }
 ;
 
@@ -145,11 +160,6 @@ void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
 	}
 }
 
-void cinema::factura()
-{
-
-}
-
 void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 {
 	int menu = 0;
@@ -192,8 +202,8 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 		case 2:
 			//mantenimiento
 			cout << "Peliculas" << endl;
-			cout << "Horas de funciones" << endl;
 			cout << "Salas" << endl;
+			cout << "Horarios" << endl;
 			cin >> menu;
 
 			switch (menu)
@@ -206,12 +216,16 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 				}
 				break;
 			case 2:
-				cout << "2:00 pm " << endl;
-				cout << "5:00 pm " << endl;
-				cout << "7:00 pm " << endl;
+				for (int i = 0; i < NUMERO_SALAS; i++) {
+					vector[i].toString();
+					cout << endl;
+				}
 				break;
 			case 3:
-				menu = 4;
+				for (int i = 0; i < NUMERO_HORARIOS; i++) {
+					vec[i].toString();
+					cout << endl;
+				}
 				break;
 			default:
 				break;
@@ -261,4 +275,34 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 			system("pause");
 		}
 	}
+}
+
+factura::factura()
+{
+	cedula = 0;
+	tarjeta = 0;
+}
+
+factura::~factura()
+{
+}
+
+void factura::setCedula(int cedula_)
+{
+	cedula = cedula_;
+}
+
+void factura::setTarjeta(int tarjeta_)
+{
+	tarjeta = tarjeta_;
+}
+
+int factura::getCedula()
+{
+	return cedula;
+}
+
+int factura::getTarjeta()
+{
+	return tarjeta;
 }
