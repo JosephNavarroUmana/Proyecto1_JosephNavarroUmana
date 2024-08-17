@@ -6,6 +6,7 @@ const int LIMIT_MATRIZ = 6;
 const int NUMERO_HORARIOS = 3;
 const int NUMERO_SALAS = 4;
 const int NUMERO_PELICULAS = 4;
+
 class pelicula
 {
 private:

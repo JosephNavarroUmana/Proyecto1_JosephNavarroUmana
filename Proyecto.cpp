@@ -103,7 +103,6 @@ cinema::~cinema()
 }
 
 void cinema::toString(int peliculaSeleccionada, int horario) {
-	cout << "Sala " << peliculaSeleccionada + 1 << ":\n";
 	cout << "  +";
 	for (int i = 0; i < LIMIT_MATRIZ; ++i) {
 		cout << "---+";
@@ -243,6 +242,11 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 			cout << "Escriba la columna: ";
 			cin >> columna;
 			setUbicacion(peliculaSeleccionada - 1, fila - 1, columna - 1, horario - 1);
+			system("cls");
+			cout << "Numero de sala --> " << peliculaSeleccionada << endl;
+			cout << "Pelicula seleccionada --> " << coso[peliculaSeleccionada - 1].getNombre() << endl;
+			cout << "Hora de la funcion --> " << vec[horario-1].getFirtsHorario() << endl;
+
 			toString(peliculaSeleccionada - 1, horario - 1);
 
 			break;
