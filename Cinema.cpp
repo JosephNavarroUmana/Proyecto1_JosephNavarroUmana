@@ -1,117 +1,23 @@
-#include"Proyecto.h"
+#include <iostream>
+#include"Cinema.h"
+#include"ClassMovie.h"
+#include"sala.h"
+#include"horario.h"
+#include"usuario.h"
 
-pelicula::pelicula()
-{
-	nombre = " ";
-	year = 0;
-	duration = 0;
-	country = " ";
-	review = 0;
-}
+using namespace std;
 
-pelicula::pelicula(string nombre_, int year_, int duration_, string country_, float review_)
-{
-	nombre = nombre_;
-	year = year_;
-	duration = duration_;
-	country = country_;
-	review = review_;
-}
-
-void pelicula::setNombre(string nombre_) {
-	nombre = nombre_;
-}
-
-pelicula::~pelicula()
-{
-}
-
-string pelicula::getNombre(){
-	return nombre;
-}
-
-void pelicula::toString()
-{
-	cout << "Pelicula: " << nombre << endl;
-	cout << "Emision: " << year << endl;
-	cout << "Duracion: " << duration << endl;
-	cout << "Pais de origen: " << country << endl;
-	cout << "Review: " << review << endl;
-}
-
-sala::sala()
-{
-	numero = 0;
-	butaca = " ";
-	precio = 0;
-}
-
-sala::sala(int numero_, string butacas_, int precio_)
-{
-	numero = numero_;
-	butaca = butacas_;
-	precio = precio_;
-}
-
-int sala::getNumero()
-{
-	return numero;
-}
-
-void sala::toString()
-{
-	cout << "Numero de sala --> " << numero << endl;
-	cout << "Numero de butacas --> " << butaca << endl;
-	cout << "Precio de la sala --> " << precio << endl;
-	cout << endl;
-}
-
-
-
-sala::~sala()
-{
-}
-
-
-horarios::horarios()
-{
-	fecha = " ";
-	firtsHorario = " ";
-	segundoHorario = " ";
-}
-
-horarios::horarios(string fecha_, string firtsHorario_, string segundoHorario_) {
-	fecha = fecha_;
-	firtsHorario = firtsHorario_;
-	segundoHorario = segundoHorario_;
-}
-string horarios::getFirtsHorario()
-{
-	return firtsHorario;
-}
-void horarios::toString()
-{
-	cout << "Fecha --> " << fecha << endl;
-	cout << "Horario de inicio " << firtsHorario << " finaliza a las " << segundoHorario << endl;
-}
-;
-
-horarios::~horarios()
-{
-}
-///
 cinema::cinema() {
 	for (int i = 0; i < NUMERO_SALAS; i++) {
 		for (int j = 0; j < NUMERO_HORARIOS; j++) {
 			for (int k = 0; k < LIMIT_MATRIZ; k++) {
 				for (int l = 0; l < LIMIT_MATRIZ; l++) {
-					matriz[i][k][l][j] = 0;  // Ajuste correcto de las dimensiones
+					matriz[i][k][l][j] = 0;
 				}
 			}
 		}
 	}
 }
-
 
 cinema::~cinema()
 {
@@ -160,10 +66,64 @@ void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
 	}
 }
 
-void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
+factura::factura()
 {
-	int menu = 0;
-	while (menu != 4) {
+
+	cedula = 0;
+	tarjeta = 0;
+}
+
+factura::~factura()
+{
+}
+
+void factura::setCedula(int cedula_)
+{
+	cedula = cedula_;
+}
+
+void factura::setTarjeta(int tarjeta_)
+{
+	tarjeta = tarjeta_;
+}
+
+int factura::getCedula()
+{
+	return cedula;
+}
+
+int factura::getTarjeta()
+{
+	return tarjeta;
+}
+
+void factura::voucher(int codigo, sala vectorSalas[], int salaSeleccionada, usuario persona1)
+{
+	int total = 0;
+	total+=vectorSalas[salaSeleccionada].getPrecio();
+	if (total < 0) {
+		cout << "Realize primero una compra " << endl;
+	}
+	else {
+		if(codigo == persona1.generarCodigo()){
+		cout << "Cedula --> " << persona1.getCedula() << endl;
+		cout << "El precio a pagar por todas las entradas es de: " << total << endl;
+		}
+		else {
+			cout << "El codigo es incorrecto" << endl;
+		}
+	}
+	
+	
+}
+
+void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura factura1, usuario cliente)
+{
+	int peliculaSeleccionada=0;
+	int menu = 0, cedula = 0, tarjeta=0;
+
+	int codigo=0;
+	while (menu != 5) {
 
 		system("cls");
 		cout << "\n==========+==========+==========+==========+==========\n";
@@ -194,16 +154,16 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 				cout << "Fan de los easter egg\n";
 				break;
 			case 2:
-				menu = 4;
+				menu = 5;
 			default:
 				break;
 			}
 			break;
 		case 2:
 			//mantenimiento
-			cout << "Peliculas" << endl;
-			cout << "Salas" << endl;
-			cout << "Horarios" << endl;
+			cout << "1-Peliculas" << endl;
+			cout << "2-Salas" << endl;
+			cout << "3-Horarios" << endl;
 			cin >> menu;
 
 			switch (menu)
@@ -211,19 +171,18 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 			case 1:
 
 				for (int i = 0; i < NUMERO_PELICULAS; i++){
-					coso[i].toString();
+					vectorPelis[i].toString();
 					cout << endl;
 				}
 				break;
 			case 2:
 				for (int i = 0; i < NUMERO_SALAS; i++) {
-					vector[i].toString();
-					cout << endl;
+					VectorSalas[i].toString();
 				}
 				break;
 			case 3:
 				for (int i = 0; i < NUMERO_HORARIOS; i++) {
-					vec[i].toString();
+					vectorHorarios[i].toString();
 					cout << endl;
 				}
 				break;
@@ -234,20 +193,19 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 
 		case 3:
 			//reservar
-			int peliculaSeleccionada, fila, columna, horario;
+			int fila, columna, horario;
 			for (int i = 0; i < NUMERO_PELICULAS; i++) {
-				cout << coso[i].getNombre() << endl;
+				cout << vectorPelis[i].getNombre() << endl;
 			}
 			cin >> peliculaSeleccionada;
 
-			cout << "La sala para la pelicula es: " << coso[peliculaSeleccionada - 1].getNombre() << endl;
-
+			cout << "La sala para la pelicula es: " << vectorPelis[peliculaSeleccionada - 1].getNombre() << endl;
 			cout << "Seleccione la hora: " << endl;
 			cout << "2:00 pm " << endl;
 			cout << "5:00 pm " << endl;
 			cout << "7:00 pm " << endl;
 			cin >> horario;
-			cout << "El horario es el numero " << vec[horario - 1].getFirtsHorario() << endl;
+			cout << "El horario es el numero " << vectorHorarios[horario - 1].getFirtsHorario() << endl;
 
 			cout << "Seleccione la butaca " << endl;
 			toString(peliculaSeleccionada - 1, horario - 1);
@@ -258,51 +216,28 @@ void cinema::menu(pelicula coso[], horarios vec[], sala vector[])
 			setUbicacion(peliculaSeleccionada - 1, fila - 1, columna - 1, horario - 1);
 			system("cls");
 			cout << "Numero de sala --> " << peliculaSeleccionada << endl;
-			cout << "Pelicula seleccionada --> " << coso[peliculaSeleccionada - 1].getNombre() << endl;
-			cout << "Hora de la funcion --> " << vec[horario-1].getFirtsHorario() << endl;
+			cout << "Pelicula seleccionada --> " << vectorPelis[peliculaSeleccionada - 1].getNombre() << endl;
+			cout << "Hora de la funcion --> " << vectorHorarios[horario-1].getFirtsHorario() << endl;
+			cout << "Digite su cedula: "; cin >> cedula; cliente.setCedula(cedula);
+			cout << "Digite el numero de su tarjeta: "; cin >> cedula; cliente.setTarjeta(tarjeta);
+			cout << "El codigo de su factura es " << cliente.generarCodigo() << endl;
 
 			toString(peliculaSeleccionada - 1, horario - 1);
+
 
 			break;
 		case 4:
 			//venta
+		
+			cout << "Digite el codigo dado en su compra "; cin >> codigo;
+			factura1.voucher(codigo, VectorSalas, peliculaSeleccionada-1, cliente);
 			break;
 		default:
 			cout << "Error.\n";
 			break;
 		}
-		if (menu != 4) {
+		if (menu != 5) {
 			system("pause");
 		}
 	}
-}
-
-factura::factura()
-{
-	cedula = 0;
-	tarjeta = 0;
-}
-
-factura::~factura()
-{
-}
-
-void factura::setCedula(int cedula_)
-{
-	cedula = cedula_;
-}
-
-void factura::setTarjeta(int tarjeta_)
-{
-	tarjeta = tarjeta_;
-}
-
-int factura::getCedula()
-{
-	return cedula;
-}
-
-int factura::getTarjeta()
-{
-	return tarjeta;
 }

@@ -1,15 +1,19 @@
 #include <iostream>
-#include"Proyecto.h"
+#include"Cinema.h"
+#include"ClassMovie.h"
+#include"sala.h"
+#include"horario.h"
 
 using namespace std;
 
 int main()
 {
+	srand(time(NULL));
 
-	pelicula beeMovie("BeeMovie", 2007, 90, "USA", 8.5);
-	pelicula adastra("Adastra", 2016, 95,"USA", 7.1);
-	pelicula bonderlands("Bonderlands",2024, 102, "USA",7.5);
-	pelicula skibiriToilet("Skibiri Toilet: mas toilet que nunca", 2025, 135, "India", 10);
+	pelicula beeMovie("BeeMovie", 2007, 90, "USA", "Te gusta el jazz?");
+	pelicula adastra("Adastra", 2016, 95,"USA", "Neferu");
+	pelicula bonderlands("Bonderlands",2024, 102, "USA","Gano un 0 por ciento en rotten tomatos");
+	pelicula skibiriToilet("Skibiri Toilet: mas toilet que nunca", 2025, 135, "India", "Toilet");
 
 	pelicula vectorPeliculas[4] = { beeMovie, adastra, bonderlands, skibiriToilet };
 
@@ -28,7 +32,10 @@ int main()
 
 	cinema salaDeCine;
 
-	salaDeCine.menu(vectorPeliculas, vectorHorarios, vectorSalas);
+	factura primeraFactura;
+	usuario primerCliente;
+
+	salaDeCine.menu(vectorPeliculas, vectorHorarios, vectorSalas, primeraFactura, primerCliente);
 
 }
 
