@@ -12,9 +12,11 @@ usuario::~usuario()
 {
 }
 
-int usuario::generarCodigo()
-{
-	return (codigo = rand() % 100 + 1);
+int usuario::generarCodigo() {
+	if (codigo == 0) { 
+		codigo = rand() % 100 + 1; 
+	}
+	return codigo;
 }
 
 void usuario::setCedula(int id)

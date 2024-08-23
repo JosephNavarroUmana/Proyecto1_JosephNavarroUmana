@@ -24,7 +24,7 @@ public:
 	void setTarjeta(int tarjeta_);
 	int getCedula();
 	int getTarjeta();
-	void voucher(int codigo, sala vectorSalas[], int salaSeleccionada, usuario persona1);
+	void voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1);
 };
 class cinema
 {
