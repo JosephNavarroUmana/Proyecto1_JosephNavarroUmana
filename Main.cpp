@@ -16,10 +16,10 @@ int main()
 
 	pelicula vectorPeliculas[4] = { LaVidaEsBella, YourName, codigoEnigma, TTPMT };
 
-	sala primerSalaA1(1, "36", 3200);
-	sala primerSalaA2(2, "36", 1500);
-	sala primerSalaB1(3, "36", 2000);
-	sala primerSalaB2(4, "36", 5000);
+	sala primerSalaA1(10, 36, 3200);
+	sala primerSalaA2(25, 36, 1500);
+	sala primerSalaB1(36, 36, 2000);
+	sala primerSalaB2(42, 36, 5000);
 
 	sala vectorSalas[4] = {primerSalaA1, primerSalaA2, primerSalaB1, primerSalaB2};
 

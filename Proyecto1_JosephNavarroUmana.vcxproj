@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="ClassMovie.cpp" />
     <ClCompile Include="Cinema.cpp" />
+    <ClCompile Include="factura.cpp" />
     <ClCompile Include="horarios.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Sala.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="ClassMovie.h" />
     <ClInclude Include="Cinema.h" />
+    <ClInclude Include="factura.h" />
     <ClInclude Include="horario.h" />
     <ClInclude Include="sala.h" />
     <ClInclude Include="usuario.h" />

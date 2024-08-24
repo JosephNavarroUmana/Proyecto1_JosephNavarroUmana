@@ -36,9 +36,11 @@ string pelicula::getNombre() {
 
 void pelicula::toString()
 {
-	cout << "Pelicula: " << nombre << endl;
-	cout << "Emision: " << year << endl;
-	cout << "Duracion: " << duration << endl;
-	cout << "Pais de origen: " << country << endl;
-	cout << "Review: " << review << endl;
+	cout <<YELLOW<< "Pelicula: " <<GREEN<< nombre <<RESET<< endl;
+	cout <<YELLOW<< "Emision: " <<GREEN<< year <<RESET<< endl;
+	cout <<YELLOW<< "Duracion: " <<GREEN<< duration <<RESET<< endl;
+	cout <<YELLOW<< "Pais de origen: " <<GREEN<< country <<RESET<< endl;
+	cout <<YELLOW<< "Review: " <<GREEN<< review << endl<<RESET;
+	cout << "==========+==========+==========+==========+==========\n";
+
 }

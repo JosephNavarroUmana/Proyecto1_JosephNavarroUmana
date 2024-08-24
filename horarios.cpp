@@ -22,8 +22,8 @@ string horarios::getFirtsHorario()
 }
 void horarios::toString()
 {
-	cout << "Fecha --> " << fecha << endl;
-	cout << "Horario de inicio " << firtsHorario << " finaliza a las " << segundoHorario << endl;
+	cout <<YELLOW<< "Fecha --> " <<GREEN<< fecha << endl;
+	cout <<YELLOW<< "Horario de inicio " <<GREEN<< firtsHorario << YELLOW<<" finaliza a las " <<GREEN<<segundoHorario << endl<<RESET;
 }
 
 horarios::~horarios()

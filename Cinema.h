@@ -5,6 +5,7 @@
 #include"sala.h"
 #include"horario.h"
 #include"usuario.h"
+#include"factura.h"
 
 using namespace std;
 
@@ -13,19 +14,12 @@ const int NUMERO_HORARIOS = 3;
 const int NUMERO_SALAS = 4;
 const int NUMERO_PELICULAS = 4;
 
-class factura {
-private:
-	int cedula;
-	int tarjeta;
-public:
-	factura();
-	~factura();
-	void setCedula(int cedula_);
-	void setTarjeta(int tarjeta_);
-	int getCedula();
-	int getTarjeta();
-	void voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1);
-};
+#define RESET   "\033[0m"
+#define RED     "\033[31m"     
+#define GREEN   "\033[32m"    
+#define YELLOW  "\033[33m"     
+#define BLUE    "\033[34m"      
+
 class cinema
 {
 private:

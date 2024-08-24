@@ -1,6 +1,9 @@
 #include "usuario.h"
 #include <stdlib.h>
+#include"Cinema.h"
+#include<iostream>
 
+using namespace std;
 usuario::usuario()
 {
 	cedula = 0;
@@ -21,7 +24,12 @@ int usuario::generarCodigo() {
 
 void usuario::setCedula(int id)
 {
-	cedula = id;
+	if (id >= 9) {
+		cedula = id;
+	}
+	else {
+		cout << RED << "Debe digitar una cedula valida (9 numeros)" << RESET << endl;
+	}
 }
 
 int usuario::getCedula()
@@ -31,7 +39,9 @@ int usuario::getCedula()
 
 void usuario::setTarjeta(int tarjeta_)
 {
-	tarjeta = tarjeta_;
+
+	tarjeta = tarjeta_; 
+	
 }
 
 int usuario::getTargeta()
