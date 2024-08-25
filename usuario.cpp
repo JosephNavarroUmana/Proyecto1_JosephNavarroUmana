@@ -39,9 +39,7 @@ int usuario::getCedula()
 
 void usuario::setTarjeta(int tarjeta_)
 {
-
-	tarjeta = tarjeta_; 
-	
+	tarjeta = tarjeta_; 	
 }
 
 int usuario::getTargeta()

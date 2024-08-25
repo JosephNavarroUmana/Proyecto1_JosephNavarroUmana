@@ -14,6 +14,7 @@ const int NUMERO_HORARIOS = 3;
 const int NUMERO_SALAS = 4;
 const int NUMERO_PELICULAS = 4;
 
+#define PINK "\033[35m"
 #define RESET   "\033[0m"
 #define RED     "\033[31m"     
 #define GREEN   "\033[32m"    

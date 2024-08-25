@@ -10,7 +10,6 @@ horarios::horarios()
 	firtsHorario = " ";
 	segundoHorario = " ";
 }
-
 horarios::horarios(string fecha_, string firtsHorario_, string segundoHorario_) {
 	fecha = fecha_;
 	firtsHorario = firtsHorario_;

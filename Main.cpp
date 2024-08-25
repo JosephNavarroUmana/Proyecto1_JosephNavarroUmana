@@ -8,7 +8,6 @@ using namespace std;
 
 int main()
 {
-	srand(time(NULL));
 	pelicula LaVidaEsBella("La vida es bella", 1997, 116, "Italia", "Un hombre utiliza su imaginación para proteger a su hijo de los horrores de un campo de concentración durante la Segunda Guerra Mundial.");
 	pelicula YourName("Your name", 2016, 106,"Japon", "Dos adolescentes, un chico y una chica, descubren que están misteriosamente conectados al intercambiar cuerpos y buscan encontrarse.");
 	pelicula codigoEnigma("Codigo enigma",2014, 113, "USA","La historia de Alan Turing, el matemático británico que descifró el código Enigma durante la Segunda Guerra Mundial, cambiando el curso de la guerra.");

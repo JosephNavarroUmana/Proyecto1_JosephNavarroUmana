@@ -42,6 +42,7 @@ int factura::getTarjeta()
 
 void factura::voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1)
 {
+	srand(time(NULL));
 	int total = 0, codigo;
 	total += vectorSalas[salaSeleccionada].getPrecio();
 	if (total < 0) {
@@ -50,6 +51,7 @@ void factura::voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1
 	else {
 		cout << "Digite el codigo dado en su compra "; cin >> codigo;
 		if (codigo == persona1.generarCodigo()) {
+			cout << "Factura por la compra de sus entradas en " << GREEN << "CINEMAX WEB" << RESET << endl;
 			cout << "Cedula --> " << persona1.getCedula() << endl;
 			cout << "El precio a pagar por todas las entradas es de: " << total << endl;
 		}
@@ -57,7 +59,5 @@ void factura::voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1
 			cout << "El codigo es incorrecto" << endl;
 		}
 	}
-
-
 }
 
