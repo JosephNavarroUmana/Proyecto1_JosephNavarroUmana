@@ -3,7 +3,6 @@
 #include"ClassMovie.h"
 #include"sala.h"
 #include"horario.h"
-#include"usuario.h"
 
 using namespace std;
 
@@ -17,10 +16,16 @@ cinema::cinema() {
 			}
 		}
 	}
+	codigo = 0;
 }
 
 cinema::~cinema()
 {
+}
+
+int cinema::getCodigo()
+{
+	return codigo;
 }
 
 void cinema::toString(int peliculaSeleccionada, int horario) {
@@ -91,7 +96,15 @@ int identificar(char columna) {
 
 }
 
-void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura factura1, usuario cliente)
+int cinema::generarCodigo() {
+	srand(time(NULL));
+	if (codigo == 0) {
+		codigo = rand() % 100 + 1;
+	}
+	return codigo;
+}
+
+void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura factura1)
 {
 	int peliculaSeleccionada=0, menu = 0, cedula = 0, tarjeta=0,codigo=0,fila=0, columna=0, horario=0;
 
@@ -178,7 +191,7 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 		case 3:
 			//reservar
 			for (int i = 0; i < NUMERO_PELICULAS; i++) {
-				cout <<YELLOW<<"\t1 - " <<vectorPelis[i].getNombre() << endl;
+				cout <<YELLOW<<i+1<<" - " << vectorPelis[i].getNombre() << endl;
 			}
 			cin >> peliculaSeleccionada;
 			cout << "La "<<GREEN<<"sala" <<YELLOW<< " para la pelicula es la numero : " << GREEN << VectorSalas[peliculaSeleccionada - 1].getNumero() << endl;
@@ -202,17 +215,19 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 			system("cls");
 			cout <<BLUE<< "Numero de sala --> " <<GREEN<< peliculaSeleccionada << endl;
 			cout <<BLUE<< "Pelicula seleccionada --> " <<GREEN<< vectorPelis[peliculaSeleccionada - 1].getNombre() << endl;
-			cout <<BLUE<< "Hora de la funcion --> " <<GREEN<< vectorHorarios[horario-1].getFirtsHorario() << endl;
-			cout << "Digite su cedula: "; cin >> cedula; cliente.setCedula(cedula);
-			cout << "Digite el numero de su tarjeta: "; cin >> cedula; cliente.setTarjeta(tarjeta);
-			cout << "El codigo de su factura es " <<BLUE<< cliente.generarCodigo() << endl<<RESET;
+			cout <<BLUE<< "Hora de la funcion --> " <<GREEN<< vectorHorarios[horario-1].getFirtsHorario() << endl;		
+			do {
+				cout <<YELLOW<< "Digite su cedula: "<<RESET; cin >> cedula; factura1.setCedula(cedula);
+			} while (cedula <= 99999999);
+			cout << "Digite el numero de su tarjeta: "; cin >> cedula; factura1.setTarjeta(tarjeta);
+			cout << "El codigo de su factura es " <<BLUE<< generarCodigo() << endl<<RESET;
 			VectorSalas[peliculaSeleccionada-1].reducirButacas();
 			toString(peliculaSeleccionada - 1, horario - 1);
 
 			break;
 		case 4:
 			//venta
-			factura1.voucher(VectorSalas, peliculaSeleccionada-1, cliente);
+			factura1.voucher(VectorSalas, peliculaSeleccionada-1, generarCodigo());
 			break;
 		default:
 			cout << "Error.\n";

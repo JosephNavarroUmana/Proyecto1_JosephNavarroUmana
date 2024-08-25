@@ -4,7 +4,6 @@
 #include"ClassMovie.h"
 #include"sala.h"
 #include"horario.h"
-#include"usuario.h"
 
 class factura {
 private:
@@ -17,5 +16,5 @@ public:
 	void setTarjeta(int tarjeta_);
 	int getCedula();
 	int getTarjeta();
-	void voucher(sala vectorSalas[], int salaSeleccionada, usuario persona1);
+	void voucher(sala vectorSalas[], int salaSeleccionada, int codigoGenerado);
 };

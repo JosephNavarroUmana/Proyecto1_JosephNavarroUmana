@@ -24,7 +24,6 @@ void horarios::toString()
 	cout <<YELLOW<< "Fecha --> " <<GREEN<< fecha << endl;
 	cout <<YELLOW<< "Horario de inicio " <<GREEN<< firtsHorario << YELLOW<<" finaliza a las " <<GREEN<<segundoHorario << endl<<RESET;
 }
-
 horarios::~horarios()
 {
 }

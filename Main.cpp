@@ -31,9 +31,9 @@ int main()
 	cinema salaDeCine;
 
 	factura primeraFactura;
-	usuario primerCliente;
 
-	salaDeCine.menu(vectorPeliculas, vectorHorarios, vectorSalas, primeraFactura, primerCliente);
+	salaDeCine.menu(vectorPeliculas, vectorHorarios, vectorSalas, primeraFactura);
+
 
 }
 
