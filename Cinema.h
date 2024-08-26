@@ -31,7 +31,8 @@ public:
 	~cinema();
 	int getCodigo();
 	void toString(int peliculaSeleccionada, int horario);
-	void setUbicacion(int a, int b, int c, int d);
-	void menu(pelicula coso[], horarios vec[], sala vector[], factura factura1);
+	void setUbicacion(int Sala, int fila, int columna, int horario);
+	void menu(pelicula vectorPelis[], horarios vecHorarios[], sala vecSalas[], factura factura1);
+	int identificar(char columna);
 	int generarCodigo();
 };
