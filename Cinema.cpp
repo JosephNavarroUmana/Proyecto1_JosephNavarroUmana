@@ -29,14 +29,14 @@ int cinema::getCodigo()
 }
 
 void cinema::toString(int peliculaSeleccionada, int horario) {
-	cout << "  +";
+	cout << "\t\t\t\t\t" << " +";
 	for (int i = 0; i < LIMIT_MATRIZ; ++i) {
 		cout << "---+";
 	}
 	cout << endl;
 
 	for (int i = 0; i < LIMIT_MATRIZ; ++i) {
-		cout << i + 1 << " |";
+		cout <<"\t\t\t\t\t" << i + 1 << "|";
 
 		for (int j = 0; j < LIMIT_MATRIZ; ++j) {
 			if (matriz[peliculaSeleccionada][i][j][horario] == 1) {
@@ -48,14 +48,14 @@ void cinema::toString(int peliculaSeleccionada, int horario) {
 		}
 		cout << endl;
 
-		cout << "  +";
+		cout <<"\t\t\t\t\t" << " +";
 		for (int k = 0; k < LIMIT_MATRIZ; ++k) {
 			cout << "---+";
 		}
 		cout << endl;
 	}
 
-	cout << "   ";
+	cout << "\t\t\t\t\t" << "   ";
 	for (char c = 'A'; c < 'A' + LIMIT_MATRIZ; ++c) {
 		cout << " " << c << "  ";
 	}
@@ -63,14 +63,15 @@ void cinema::toString(int peliculaSeleccionada, int horario) {
 }
 
 void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
-	if (matriz[sala][fila][columna][horario] == 1) {
-		cout <<RED<< "Ese espacio ya esta ocupado elija otro "<<RESET<<endl;
+	// Verificar si los índices están fuera de límites (>= en lugar de >)
+	if (sala < 0 || sala >= NUMERO_SALAS || columna < 0 || columna >= LIMIT_MATRIZ || fila < 0 || fila >= LIMIT_MATRIZ || horario < 0 || horario >= 4) {
+		cout << RED << "Esta fuera de los limites " << RESET << endl;
 	}
-	else if (sala > NUMERO_SALAS ||  columna> LIMIT_MATRIZ || fila >LIMIT_MATRIZ || horario > 3) {
-		cout <<RED<< "Esta fuera de los limites " <<RESET<< endl;
+	else if (matriz[sala][fila][columna][horario] == 1) {
+		cout << RED << "Ese espacio ya esta ocupado elija otro " << RESET << endl;
 	}
 	else {
-		cout <<GREEN<< "El asiento fue reservado" <<RESET<<endl;
+		cout << GREEN << "El asiento fue reservado" << RESET << endl;
 		matriz[sala][fila][columna][horario] = 1;
 	}
 }
@@ -103,24 +104,27 @@ int cinema::generarCodigo() {
 	}
 	return codigo;
 }
+void decoracion() {
+	cout <<RESET<<"\t\t\t\t==========+==========+==========+==========+==========\n";
+}
 
 void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura factura1)
 {
-	int peliculaSeleccionada=0, menu = 0, cedula = 0, tarjeta=0,codigo=0,fila=0, horario=0;
+	int peliculaSeleccionada = 0, menu = 0, cedula = 0, tarjeta = 0, codigo = 0, fila = 0, horario = 0, salida = 0;
 	char columna ;
 	cout <<RED<< "\t\tPara una mejor experiencia en la pagina le recomendamos agrandar la ventana " <<RESET<< endl;
 	system("pause");
 	while (menu != 5) {
 
 		system("cls");
-		cout << "\n\t\t\t\t==========+==========+==========+==========+==========\n";
-		cout <<RED<< "\t\t\t\t\t\tMENU DE OPCIONES\n"<<RESET;
-		cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
-		cout <<YELLOW<< "\t\t\t\t\t\t  1-Archivo" << endl;
+		decoracion();
+		cout << RED << "\t\t\t\t\t\tMENU DE OPCIONES\n" << RESET;
+		decoracion();
+		cout << YELLOW << "\t\t\t\t\t\t  1-Archivo" << endl;
 		cout << "\t\t\t\t\t\t2-Mantenimiento" << endl;
 		cout << "\t\t\t\t\t\t  3-Reservar" << endl;
 		cout << "\t\t\t\t\t\t   4-Venta" <<RESET<<endl;
-		cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
+		decoracion();
 		cout << "\t\t\t\tSeleccione una opcion: ";
 		cin >> menu;
 
@@ -129,16 +133,17 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 		switch (menu) {
 		case 1:
 			//archivo
-			cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			cout <<YELLOW<< "\t\t\t\t\t\t   Acerca de " << endl;
 			cout << "\t\t\t\t\t\t     Salir" <<RESET<< endl;
-			cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			cin >> menu;
 			switch (menu)
 			{
 			case 1:
 				cout <<GREEN<< "\t\t\t\t\t   Desarrollador:"<<PINK<<" Joseph Navarro Umana\n";
 				cout <<GREEN<< "\t\t\t\t\t\tPAGINA:"<<BLUE<<"CINEMAX" << endl;
+				decoracion();
 				cout <<YELLOW<< "\t\t\t\t\t\t   /\\_/\\  " << endl;
 				cout << "\t\t\t\t\t\t  ( o.o ) " << endl;
 				cout << "\t\t\t\t\t\t   > ^ <  " << endl;
@@ -147,7 +152,10 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 				cout << "\t\t\t\t\t\t  /     \\ " << endl;
 				cout << "\t\t\t\t\t\t (       )" << endl;
 				cout << "\t\t\t\t\t\t  \\__|__/" << endl<<RESET;
+				decoracion();
 				cout <<GREEN<< "\t\t\t\t\tUn agradecimiento especial a:"<<RED<<" Alejandro Flores" <<RESET<< endl;
+				cout << GREEN << "\t\t\t\t\tPresione cualquier tecla para volver al menu" << RESET << endl;
+				decoracion();
 				break;
 			case 2:
 				menu = 5;
@@ -157,21 +165,22 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 			break;
 		case 2:
 			//mantenimiento
-			cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			cout <<YELLOW<< "\t\t\t\t\t\t    1-Peliculas" << endl;
 			cout << "\t\t\t\t\t\t    2-Salas" << endl;
 			cout << "\t\t\t\t\t\t    3-Horarios" << endl<<RESET;
-			cout << "\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 
 			cin >> menu;
 
 			switch (menu)
 			{
 			case 1:
-
+				decoracion();
 				for (int i = 0; i < NUMERO_PELICULAS; i++){
 					vectorPelis[i].toString();
 				}
+				decoracion();
 				break;
 			case 2:
 				for (int i = 0; i < NUMERO_SALAS; i++) {
@@ -190,52 +199,72 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 
 		case 3:
 			//reservar
-			cout << RESET << "\n\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			for (int i = 0; i < NUMERO_PELICULAS; i++) {
 				cout <<YELLOW<<"\t\t\t\t\t" << i + 1 << " - " <<BLUE<<vectorPelis[i].getNombre() << endl;
 			}
-			cout <<RESET<<"\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			cin >> peliculaSeleccionada;
 			cout <<YELLOW<< "\t\t\t\tLa "<<GREEN<<"sala" <<YELLOW<< " para la pelicula es la numero : " << GREEN << VectorSalas[peliculaSeleccionada - 1].getNumero() << endl;
-			cout <<RESET<< "\n\t\t\t\t==========+==========+==========+==========+==========\n";
+			decoracion();
 			system("pause");
 			system("cls");
-			cout << RESET << "\n\t\t\t\t==========+==========+==========+==========+==========\n";
-			cout <<YELLOW<<"\t\t\t\tSeleccione la hora: " << endl;
-			cout << "\t\t\t\t1 - 2:00 pm " << endl;
-			cout << "\t\t\t\t2 - 5:00 pm " << endl;
-			cout << "\t\t\t\t3 - 7:00 pm " << endl<<RESET;
-			cout << RESET << "\n\t\t\t\t==========+==========+==========+==========+==========\n";
-			cin >> horario;
-			cout <<YELLOW<< "\t\t\t\tEl "<<GREEN<<"horario "<<YELLOW<<"seleccionado para la funcion es : " <<GREEN<< vectorHorarios[horario - 1].getFirtsHorario() << endl;
-			cout << RESET << "\n\t\t\t\t==========+==========+==========+==========+==========\n";
-			system("pause");
+			decoracion();
+			while (salida == 0) {
+				system("cls");
+				decoracion();
+				cout <<YELLOW<< "\t\t\t\tSeleccione un horario: " <<RESET<<endl;
+				decoracion();
+				for (int i = 0; i < NUMERO_HORARIOS; i++){
+					cout<<GREEN<<"\t\t\t\t" << vectorHorarios[i].getFirtsHorario() << RESET<<endl;
+				}
+				decoracion();
+				cin >> horario;
+				if (vectorHorarios[horario - 1].faltan30Minutos() == false) {
+					cout <<RED<< "\t\t\t\tNo puede reservar 30 minutos antes de una funcion " <<RESET<< endl;
+					salida = 0;
+				}
+				else {
+					cout << YELLOW << "\t\t\t\tEl " << GREEN << "horario " << YELLOW << "seleccionado para la funcion es : " << GREEN << vectorHorarios[horario - 1].getFirtsHorario() << endl;
+					decoracion();
+					salida++;
+				}
+				system("pause");
+			}
 			system("cls");
+			decoracion();
 			cout <<YELLOW<<"\t\t\t\tSeleccione la butaca " << endl<<RESET;
+			decoracion();
 			toString(peliculaSeleccionada - 1, horario - 1);
+			decoracion();
 			cout << YELLOW<<"\t\t\t\tEscriba la fila "<<GREEN<<"(1,6): ";
 			cin >> fila;
-			cout <<YELLOW<<"Escriba la columna "<<GREEN<<"(a,f): ";cin >> columna;
+			cout <<YELLOW<<"\t\t\t\tEscriba la columna "<<GREEN<<"(a,f): ";cin >> columna;
 			setUbicacion(peliculaSeleccionada - 1, fila - 1, identificar(columna), horario - 1);
 			system("cls");
+			decoracion();
 			cout <<BLUE<< "\t\t\t\tNumero de sala --> " <<GREEN<< VectorSalas[peliculaSeleccionada].getNumero() << endl;
 			cout <<BLUE<< "\t\t\t\tPelicula seleccionada --> " <<GREEN<< vectorPelis[peliculaSeleccionada - 1].getNombre() << endl;
-			cout <<BLUE<< "\t\t\t\tHora de la funcion --> " <<GREEN<< vectorHorarios[horario-1].getFirtsHorario() << endl;		
+			cout <<BLUE<< "\t\t\t\tHora de la funcion --> " <<GREEN<< vectorHorarios[horario-1].getFirtsHorario() << endl;	
+			decoracion();
 			do {
-				cout <<YELLOW<< "Digite su cedula: "<<RESET; cin >> cedula; factura1.setCedula(cedula);
+				cout <<YELLOW<< "\t\t\t\tDigite su cedula: "<<RESET; cin >> cedula; factura1.setCedula(cedula);
 			} while (cedula <= 99999999);
 			do
 			{
-				cout <<YELLOW<< "Digite el numero de su tarjeta: "<<RESET; cin >> tarjeta; factura1.setTarjeta(tarjeta);
+				cout <<YELLOW<< "\t\t\t\tDigite el numero de su tarjeta: "<<RESET; cin >> tarjeta; factura1.setTarjeta(tarjeta);
 			} while (tarjeta <= 9999999);
-			cout <<GREEN<< "El codigo de su factura es " <<BLUE<< generarCodigo() << endl<<RESET;
+			cout <<GREEN<< "\t\t\t\tEl codigo de su factura es " <<BLUE<< generarCodigo() << endl<<RESET;
 			VectorSalas[peliculaSeleccionada-1].reducirButacas();
+			decoracion();
 			toString(peliculaSeleccionada - 1, horario - 1);
-
+			decoracion();
 			break;
 		case 4:
 			//venta
+			decoracion();
 			factura1.voucher(VectorSalas, peliculaSeleccionada-1, generarCodigo());
+			decoracion();
 			break;
 		default:
 			cout << "Error.\n";

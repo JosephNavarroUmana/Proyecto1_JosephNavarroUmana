@@ -3,6 +3,8 @@
 #include"ClassMovie.h"
 #include"sala.h"
 #include"horario.h"
+#include <ctime>
+#include <sstream>
 
 horarios::horarios()
 {
@@ -26,4 +28,30 @@ void horarios::toString()
 }
 horarios::~horarios()
 {
+}
+bool horarios::faltan30Minutos() {
+    time_t tiempoActual = time(0);
+    tm horaLocal; 
+
+    localtime_s(&horaLocal, &tiempoActual); 
+
+    int hora, minutos;
+    stringstream ss(firtsHorario); 
+    char separador;
+    ss >> hora >> separador >> minutos; 
+
+    tm horaIngresada = horaLocal;
+    horaIngresada.tm_hour = hora;
+    horaIngresada.tm_min = minutos;
+    horaIngresada.tm_sec = 0;
+
+    time_t tiempoIngresado = mktime(&horaIngresada);
+
+    double diferenciaSegundos = difftime(tiempoIngresado, tiempoActual);
+
+    if (diferenciaSegundos <= 1800 && diferenciaSegundos > 0) {
+        return false; 
+    }
+
+    return true; 
 }

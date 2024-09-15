@@ -22,10 +22,10 @@ factura::~factura()
 void factura::setCedula(int cedula_)
 {
 	if (cedula_ > 99999999) {
-		cedula = cedula_;
+		tarjeta = cedula_;
 	}
 	else {
-		cout << RED << "Debe digitar una cedula valida (9 digitos minimo)" << RESET << endl;
+		cout << RED << "Debe digitar una targeta con mas de 9 digitos" << RESET << endl;
 	}
 }
 
@@ -64,7 +64,7 @@ void factura::voucher(sala vectorSalas[], int salaSeleccionada, int codigoGenera
 			cout <<YELLOW<< "\t\t\t\tEl precio a pagar por todas las entradas es de: " <<GREEN<< total << endl<<RESET;
 		}
 		else {
-			cout <<RED<<"El codigo es incorrecto" << endl;
+			cout <<RED<<"El codigo es incorrecto" <<RESET<<endl;
 		}
 	}
 }

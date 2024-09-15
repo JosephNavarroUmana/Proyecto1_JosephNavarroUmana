@@ -14,4 +14,5 @@ public:
 	string getFirtsHorario();
 	void toString();
 	~horarios();
+	bool faltan30Minutos();
 };

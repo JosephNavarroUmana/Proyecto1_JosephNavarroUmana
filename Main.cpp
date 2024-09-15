@@ -22,8 +22,8 @@ int main()
 
 	sala vectorSalas[4] = {primerSalaA1, primerSalaA2, primerSalaB1, primerSalaB2};
 
-	horarios primerHorario("6 de agosto", "2:00", "3:00");
-	horarios segundoHorario("6 de agosto", "5:00", "6:00");
+	horarios primerHorario("6 de agosto", "11:30", "3:00");
+	horarios segundoHorario("6 de agosto", "4:00", "6:00");
 	horarios tercerHorario("6 de agosto", "7:00", "8:00");
 
 	horarios vectorHorarios[3] = { primerHorario, segundoHorario, tercerHorario };
