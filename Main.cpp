@@ -8,10 +8,10 @@ using namespace std;
 
 int main()
 {
-	pelicula LaVidaEsBella("La vida es bella", 1997, 116, "Italia", "Un hombre utiliza su imaginación para proteger a su hijo de los horrores de un campo de concentración durante la Segunda Guerra Mundial.");
-	pelicula YourName("Your name", 2016, 106,"Japon", "Dos adolescentes, un chico y una chica, descubren que están misteriosamente conectados al intercambiar cuerpos y buscan encontrarse.");
-	pelicula codigoEnigma("Codigo enigma",2014, 113, "USA","La historia de Alan Turing, el matemático británico que descifró el código Enigma durante la Segunda Guerra Mundial, cambiando el curso de la guerra.");
-	pelicula TTPMT("Everything Everywhere All at Once", 2022, 139, "China", "Una mujer común se ve envuelta en una batalla multiversal donde debe usar versiones alternativas de sí misma para salvar la realidad.");
+	pelicula LaVidaEsBella("La vida es bella", 1997, 116, "Italia", "Un hombre utiliza su imaginacion para proteger a su hijo de los horrores de un campo de concentración durante la Segunda Guerra Mundial.");
+	pelicula YourName("Your name", 2016, 106,"Japon", "Dos adolescentes, un chico y una chica, descubren que estan misteriosamente conectados al intercambiar cuerpos y buscan encontrarse.");
+	pelicula codigoEnigma("Codigo enigma",2014, 113, "USA","La historia de Alan Turing, el matematico britanico que descifro el codigo Enigma durante la Segunda Guerra Mundial, cambiando el curso de la guerra.");
+	pelicula TTPMT("Everything Everywhere All at Once", 2022, 139, "China", "Una mujer comun se ve envuelta en una batalla multiversal donde debe usar versiones alternativas de si misma para salvar la realidad.");
 
 	pelicula vectorPeliculas[4] = { LaVidaEsBella, YourName, codigoEnigma, TTPMT };
 
@@ -22,9 +22,9 @@ int main()
 
 	sala vectorSalas[4] = {primerSalaA1, primerSalaA2, primerSalaB1, primerSalaB2};
 
-	horarios primerHorario("6 de agosto", "11:30", "3:00");
-	horarios segundoHorario("6 de agosto", "4:00", "6:00");
-	horarios tercerHorario("6 de agosto", "7:00", "8:00");
+	horarios primerHorario("15 de septimebre", "2:30", "3:30");
+	horarios segundoHorario("15 de septimebre", "4:30", "5:30");
+	horarios tercerHorario("15 de septimebre", "7:00", "8:00");
 
 	horarios vectorHorarios[3] = { primerHorario, segundoHorario, tercerHorario };
 

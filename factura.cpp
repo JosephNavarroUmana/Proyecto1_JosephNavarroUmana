@@ -22,7 +22,7 @@ factura::~factura()
 void factura::setCedula(int cedula_)
 {
 	if (cedula_ > 99999999) {
-		tarjeta = cedula_;
+		cedula = cedula_;
 	}
 	else {
 		cout << RED << "Debe digitar una targeta con mas de 9 digitos" << RESET << endl;
@@ -49,11 +49,10 @@ int factura::getTarjeta()
 	return tarjeta;
 }
 
-void factura::voucher(sala vectorSalas[], int salaSeleccionada, int codigoGenerado)
+void factura::voucher(horarios vectorhorarios[],pelicula vectorPeliculas[],sala vectorSalas[], int salaSeleccionada, int codigoGenerado)
 {
-	int total = 0, codigo;
-	total += vectorSalas[salaSeleccionada].getPrecio();
-	if (total < 0) {
+	int codigo;
+	if (vectorSalas[salaSeleccionada].getPrecio() <= 0) {
 		cout <<RED<< "Realize primero una compra " << endl<<RESET;
 	}
 	else {
@@ -61,7 +60,10 @@ void factura::voucher(sala vectorSalas[], int salaSeleccionada, int codigoGenera
 		if (codigo == codigoGenerado) {
 			cout <<YELLOW<< "\t\t\t\tFactura por la compra de sus entradas en " << GREEN<<endl << "\t\t\t\t\t\tCINEMAX WEB" << RESET << endl;
 			cout <<YELLOW<< "\t\t\t\t\tCedula --> " <<GREEN<< getCedula() << endl;
-			cout <<YELLOW<< "\t\t\t\tEl precio a pagar por todas las entradas es de: " <<GREEN<< total << endl<<RESET;
+			cout << YELLOW << "\t\t\t\t\tPelicula --> " << GREEN << vectorPeliculas[salaSeleccionada].getNombre() << endl;
+			cout << YELLOW << "\t\t\t\t\tSala --> " << GREEN << vectorSalas[salaSeleccionada].getNumero() << endl;
+			cout << YELLOW << "\t\t\t\t\tHorario --> " << GREEN << vectorhorarios[salaSeleccionada].getFirtsHorario() << endl;
+			cout <<YELLOW<< "\t\t\t\tEl precio a pagar por la entrada es de: " <<GREEN<< vectorSalas[salaSeleccionada].getPrecio() << endl<<RESET;
 		}
 		else {
 			cout <<RED<<"El codigo es incorrecto" <<RESET<<endl;

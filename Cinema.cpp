@@ -17,6 +17,8 @@ cinema::cinema() {
 		}
 	}
 	codigo = 0;
+	srand(time(NULL));
+
 }
 
 cinema::~cinema()
@@ -62,34 +64,36 @@ void cinema::toString(int peliculaSeleccionada, int horario) {
 	cout << endl;
 }
 
-void cinema::setUbicacion(int sala, int fila, int columna, int horario) {
-	// Verificar si los índices están fuera de límites (>= en lugar de >)
+bool cinema::setUbicacion(int sala, int fila, int columna, int horario) {
 	if (sala < 0 || sala >= NUMERO_SALAS || columna < 0 || columna >= LIMIT_MATRIZ || fila < 0 || fila >= LIMIT_MATRIZ || horario < 0 || horario >= 4) {
-		cout << RED << "Esta fuera de los limites " << RESET << endl;
+		cout << RED << "\t\t\t\tEsta fuera de los limites " << RESET << endl;
+		return false;
 	}
 	else if (matriz[sala][fila][columna][horario] == 1) {
-		cout << RED << "Ese espacio ya esta ocupado elija otro " << RESET << endl;
+		cout << RED << "\t\t\t\tEse espacio ya esta ocupado elija otro " << RESET << endl;
+		return false;
 	}
 	else {
-		cout << GREEN << "El asiento fue reservado" << RESET << endl;
+		cout << GREEN << "\t\t\t\tEl asiento fue reservado" << RESET << endl;
 		matriz[sala][fila][columna][horario] = 1;
+		return true;
 	}
 }
 
 int cinema::identificar(char columna) {
 	switch (columna)
 	{
-	case 'a':case'A':
+	case 'a':case'A':case 1:
 		return 0;
-	case 'b':case 'B':
+	case 'b':case 'B':case 2:
 		return 1;
-	case 'c':case 'C':
+	case 'c':case 'C':case 3:
 		return 2;
-	case 'd':case 'D':
+	case 'd':case 'D':case 4:
 		return 3;
-	case 'e':case 'E':
+	case 'e':case 'E':case 5:
 		return 4;
-	case 'f':case 'F':
+	case 'f':case 'F':case 6:
 		return 5;
 	default:
 		break;
@@ -98,9 +102,8 @@ int cinema::identificar(char columna) {
 }
 
 int cinema::generarCodigo() {
-	srand(time(NULL));
 	if (codigo == 0) {
-		codigo = rand() % 100 + 1;
+		codigo = rand() % 10000 + 101;
 	}
 	return codigo;
 }
@@ -216,7 +219,7 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 				cout <<YELLOW<< "\t\t\t\tSeleccione un horario: " <<RESET<<endl;
 				decoracion();
 				for (int i = 0; i < NUMERO_HORARIOS; i++){
-					cout<<GREEN<<"\t\t\t\t" << vectorHorarios[i].getFirtsHorario() << RESET<<endl;
+					cout<<GREEN<<"\t\t\t\t" <<i+1<<" - " << vectorHorarios[i].getFirtsHorario() << RESET << endl;
 				}
 				decoracion();
 				cin >> horario;
@@ -227,10 +230,11 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 				else {
 					cout << YELLOW << "\t\t\t\tEl " << GREEN << "horario " << YELLOW << "seleccionado para la funcion es : " << GREEN << vectorHorarios[horario - 1].getFirtsHorario() << endl;
 					decoracion();
-					salida++;
+					salida=1;
 				}
 				system("pause");
 			}
+			salida = 0;
 			system("cls");
 			decoracion();
 			cout <<YELLOW<<"\t\t\t\tSeleccione la butaca " << endl<<RESET;
@@ -240,10 +244,17 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 			cout << YELLOW<<"\t\t\t\tEscriba la fila "<<GREEN<<"(1,6): ";
 			cin >> fila;
 			cout <<YELLOW<<"\t\t\t\tEscriba la columna "<<GREEN<<"(a,f): ";cin >> columna;
-			setUbicacion(peliculaSeleccionada - 1, fila - 1, identificar(columna), horario - 1);
+			
+			while (setUbicacion(peliculaSeleccionada - 1, fila - 1, identificar(columna), horario - 1) == false) {
+				cout << YELLOW << "\t\t\t\tEscriba de nuevo la fila " << GREEN << "(1,6): ";
+				cin >> fila;
+				cout << YELLOW << "\t\t\t\tEscriba de nuevo la columna " << GREEN << "(a,f): "; cin >> columna;
+
+			}
+			system("pause");
 			system("cls");
 			decoracion();
-			cout <<BLUE<< "\t\t\t\tNumero de sala --> " <<GREEN<< VectorSalas[peliculaSeleccionada].getNumero() << endl;
+			cout <<BLUE<< "\t\t\t\tNumero de sala --> " <<GREEN<< VectorSalas[peliculaSeleccionada-1].getNumero() << endl;
 			cout <<BLUE<< "\t\t\t\tPelicula seleccionada --> " <<GREEN<< vectorPelis[peliculaSeleccionada - 1].getNombre() << endl;
 			cout <<BLUE<< "\t\t\t\tHora de la funcion --> " <<GREEN<< vectorHorarios[horario-1].getFirtsHorario() << endl;	
 			decoracion();
@@ -263,7 +274,7 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 		case 4:
 			//venta
 			decoracion();
-			factura1.voucher(VectorSalas, peliculaSeleccionada-1, generarCodigo());
+			factura1.voucher(vectorHorarios,vectorPelis, VectorSalas, peliculaSeleccionada-1, generarCodigo());
 			decoracion();
 			break;
 		default:
