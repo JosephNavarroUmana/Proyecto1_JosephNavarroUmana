@@ -16,5 +16,5 @@ public:
 	void setTarjeta(int tarjeta_);
 	int getCedula();
 	int getTarjeta();
-	void voucher(horarios vectorHorarios[],pelicula vectorPelicula[], sala vectorSalas[], int salaSeleccionada, int codigoGenerado);
+	void voucher(horarios vectorHorarios[],pelicula vectorPelicula[], sala vectorSalas[], int salaSeleccionada,int horarioSeleccionado, int codigoGenerado);
 };

@@ -25,6 +25,8 @@ class cinema
 private:
 	int matriz[NUMERO_SALAS][LIMIT_MATRIZ][LIMIT_MATRIZ][NUMERO_HORARIOS];
 	int codigo;
+	int peliculaSeleccionada;
+	int horarioSeleccionnado;
 	
 public:
 	cinema();
@@ -32,7 +34,11 @@ public:
 	int getCodigo();
 	void toString(int peliculaSeleccionada, int horario);
 	bool setUbicacion(int Sala, int fila, int columna, int horario);
-	void menu(pelicula vectorPelis[], horarios vecHorarios[], sala vecSalas[], factura factura1);
 	int identificar(char columna);
+	void decoracion();
+	void archivo(int &menu);
+	void mantenimiento(int menu, pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[]);
+	void reserva(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura &factura1, int salida, int fila, char columna, int targeta);
 	int generarCodigo();
+	void venta(bool validar, factura primeraFactura, sala vectorSalas[], pelicula vectorPeliculas[], horarios vectorHorarios[]);
 };

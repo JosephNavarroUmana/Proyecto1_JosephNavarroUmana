@@ -32,8 +32,50 @@ int main()
 
 	factura primeraFactura;
 
-	salaDeCine.menu(vectorPeliculas, vectorHorarios, vectorSalas, primeraFactura);
+	int menu = 0, tarjeta = 0, codigo = 0, fila = 0,horario = 0, salida = 0;
+	char columna = 'a';
+	bool validar = true;
 
+	cout << RED << "\t\tPara una mejor experiencia en la pagina le recomendamos agrandar la ventana " << RESET << endl;
+	system("pause");
+
+	while (menu != 5) {
+		system("cls");
+		salaDeCine.decoracion();
+		cout << RED << "\t\t\t\t\t\tMENU DE OPCIONES\n" << RESET;
+		salaDeCine.decoracion();
+		cout << YELLOW << "\t\t\t\t\t\t  1-Archivo" << endl;
+		cout << "\t\t\t\t\t\t2-Mantenimiento" << endl;
+		cout << "\t\t\t\t\t\t  3-Reservar" << endl;
+		cout << "\t\t\t\t\t\t   4-Venta" << RESET << endl;
+		salaDeCine.decoracion();
+		cout << "\t\t\t\tSeleccione una opcion: ";
+		cin >> menu;
+		system("cls");
+
+		switch (menu) {
+		case 1:
+			salaDeCine.archivo(menu);
+			break;
+		case 2:
+			salaDeCine.mantenimiento(menu, vectorPeliculas, vectorHorarios, vectorSalas);
+			break;
+
+		case 3:
+			salaDeCine.reserva(vectorPeliculas, vectorHorarios, vectorSalas, primeraFactura, salida, fila, columna, tarjeta);
+			validar= false;
+			break;
+		case 4:
+			salaDeCine.venta(validar, primeraFactura, vectorSalas, vectorPeliculas, vectorHorarios);
+			break;
+		default:
+			cout << "Error.\n";
+			break;
+		}
+		if (menu != 5) {
+			system("pause");
+		}
+	}
 
 }
 
