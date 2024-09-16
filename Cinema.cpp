@@ -74,7 +74,6 @@ bool cinema::setUbicacion(int sala, int fila, int columna, int horario) {
 		return false;
 	}
 	else {
-		cout << GREEN << "\t\t\t\tEl asiento fue reservado" << RESET << endl;
 		matriz[sala][fila][columna][horario] = 1;
 		return true;
 	}
@@ -251,6 +250,12 @@ void cinema::menu(pelicula vectorPelis[], horarios vectorHorarios[], sala Vector
 				cout << YELLOW << "\t\t\t\tEscriba de nuevo la columna " << GREEN << "(a,f): "; cin >> columna;
 
 			}
+			system("pause");
+			system("cls");
+			decoracion();
+			cout << GREEN << "\t\t\t\tEl asiento fue reservado" << RESET << endl;
+			toString(peliculaSeleccionada - 1, horario - 1);
+			decoracion();
 			system("pause");
 			system("cls");
 			decoracion();

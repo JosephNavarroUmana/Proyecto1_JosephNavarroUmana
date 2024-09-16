@@ -49,25 +49,36 @@ int factura::getTarjeta()
 	return tarjeta;
 }
 
-void factura::voucher(horarios vectorhorarios[],pelicula vectorPeliculas[],sala vectorSalas[], int salaSeleccionada, int codigoGenerado)
+void factura::voucher(horarios vectorhorarios[], pelicula vectorPeliculas[], sala vectorSalas[], int salaSeleccionada, int codigoGenerado)
 {
-	int codigo;
-	if (vectorSalas[salaSeleccionada].getPrecio() <= 0) {
-		cout <<RED<< "Realize primero una compra " << endl<<RESET;
-	}
-	else {
-		cout <<BLUE<< "\t\t\t\t\tDigite el codigo dado en su compra "<<RESET; cin >> codigo;
-		if (codigo == codigoGenerado) {
-			cout <<YELLOW<< "\t\t\t\tFactura por la compra de sus entradas en " << GREEN<<endl << "\t\t\t\t\t\tCINEMAX WEB" << RESET << endl;
-			cout <<YELLOW<< "\t\t\t\t\tCedula --> " <<GREEN<< getCedula() << endl;
-			cout << YELLOW << "\t\t\t\t\tPelicula --> " << GREEN << vectorPeliculas[salaSeleccionada].getNombre() << endl;
-			cout << YELLOW << "\t\t\t\t\tSala --> " << GREEN << vectorSalas[salaSeleccionada].getNumero() << endl;
-			cout << YELLOW << "\t\t\t\t\tHorario --> " << GREEN << vectorhorarios[salaSeleccionada].getFirtsHorario() << endl;
-			cout <<YELLOW<< "\t\t\t\tEl precio a pagar por la entrada es de: " <<GREEN<< vectorSalas[salaSeleccionada].getPrecio() << endl<<RESET;
-		}
-		else {
-			cout <<RED<<"El codigo es incorrecto" <<RESET<<endl;
-		}
-	}
-}
+    int codigo;
+    if (vectorSalas[salaSeleccionada].getPrecio() <= 0) {
+        cout << RED << "\t\t\t\tRealice primero una compra." << endl << RESET;
+    }
+    else {
+        cout << BLUE << "\t\t\t\t\tDigite el codigo dado en su compra: " << RESET;
+        cin >> codigo;
 
+        if (codigo == codigoGenerado) {
+            cout << YELLOW << "\n\t\t\t\t+===========================================+" << endl;
+            cout << "\t\t\t\t|           " << GREEN << "CINEMAX WEB - FACTURA" << RESET << YELLOW << "           |" << endl;
+            cout << "\t\t\t\t+===========================================+" << RESET << endl;
+
+            cout << YELLOW << "\t\t\t\t| Numero de Factura: " << GREEN << rand() % 10000 << YELLOW << "\t\t    |" << endl;
+            cout << "\t\t\t\t| Fecha: " << GREEN << "18/09/2024" << YELLOW << "                         |" << endl;
+            cout << "\t\t\t\t| Cedula: " << GREEN << getCedula() << YELLOW << "            \t\t    |" << endl;
+            cout << "\t\t\t\t| Pelicula: " << GREEN << vectorPeliculas[salaSeleccionada].getNombre() << YELLOW << "\t\t    |" << endl;
+            cout << "\t\t\t\t| Sala: " << GREEN << vectorSalas[salaSeleccionada].getNumero() << YELLOW << "\t\t\t\t    |" << endl;
+            cout << "\t\t\t\t| Horario: " << GREEN << vectorhorarios[salaSeleccionada].getFirtsHorario() << YELLOW << "\t\t\t\t    |" << endl;
+            cout << "\t\t\t\t| Precio por Entrada: " << GREEN << "$" << vectorSalas[salaSeleccionada].getPrecio() << YELLOW << "\t\t    |" << endl;
+
+            // Pie de la factura
+            cout << "\t\t\t\t+===========================================+" << endl;
+            cout << "\t\t\t\t|" << GREEN << "Gracias por su compra! Disfrute la pelicula" << RESET << YELLOW << "|" << endl;
+            cout << "\t\t\t\t+===========================================+" << RESET << endl;
+        }
+        else {
+            cout << RED << "\t\t\t\tEl codigo es incorrecto." << RESET << endl;
+        }
+    }
+}
