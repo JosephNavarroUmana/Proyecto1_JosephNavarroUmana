@@ -6,37 +6,38 @@
 #include <ctime>
 #include <sstream>
 
-horarios::horarios()
+Schedules::Schedules()
 {
-	fecha = " ";
-	firtsHorario = " ";
-	segundoHorario = " ";
+	date = " ";
+	firstTime = " ";
+	secondTime = " ";
 }
-horarios::horarios(string fecha_, string firtsHorario_, string segundoHorario_) {
-	fecha = fecha_;
-	firtsHorario = firtsHorario_;
-	segundoHorario = segundoHorario_;
+Schedules::Schedules(string date_, string firstTime_, string secondTime_) {
+	date = date_;
+	firstTime = firstTime_;
+	secondTime = secondTime_;
 }
-string horarios::getFirtsHorario()
+string Schedules::getFirstTime()
 {
-	return firtsHorario;
+	return firstTime;
 }
-void horarios::toString()
+void Schedules::toString()
 {
-	cout <<YELLOW<< "Fecha --> " <<GREEN<< fecha << endl;
-	cout <<YELLOW<< "Horario de inicio " <<GREEN<< firtsHorario << YELLOW<<" finaliza a las " <<GREEN<<segundoHorario << endl<<RESET;
+	cout <<YELLOW<< "Fecha --> " <<GREEN<< date << endl;
+	cout <<YELLOW<< "Horario de inicio " <<GREEN<< firstTime << YELLOW<<" finaliza a las " <<GREEN<<secondTime << endl<<RESET;
 }
-horarios::~horarios()
+Schedules::~Schedules()
 {
 }
-bool horarios::faltan30Minutos() {
+
+bool Schedules::isLessThan30MinutesRemaining() {
     time_t tiempoActual = time(0);
     tm horaLocal; 
 
     localtime_s(&horaLocal, &tiempoActual); 
 
     int hora, minutos;
-    stringstream ss(firtsHorario); 
+    stringstream ss(firstTime); 
     char separador;
     ss >> hora >> separador >> minutos; 
 

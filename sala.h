@@ -3,19 +3,19 @@
 
 using namespace std;
 
-class sala
+class Rooms
 {
 private:
-	int numero;
-	int butacas;
-	int precio;
+	int number;
+	int seats;
+	int price;
 public:
-	sala();
-	sala(int numero_, int butacas_, int precio_);
-	int getNumero();
+	Rooms();
+	Rooms(int number_, int seats_, int price_);
+	int getNumber();
 	void toString();
-	int getPrecio();
-	void setButacas(int butacas_);
-	void reducirButacas();
-	~sala();
+	int getPrice();
+	void setSeats(int seats_);
+	void reduceSeats();
+	~Rooms();
 };

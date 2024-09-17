@@ -2,48 +2,48 @@
 #include"Cinema.h"
 #include<iostream>
 
-sala::sala()
+Rooms::Rooms()
 {
-	numero = 0;
-	butacas = 36;
-	precio = 0;
+	number = 0;
+	seats = 36;
+	price = 0;
 }
 
-sala::sala(int numero_, int butacas_, int precio_)
+Rooms::Rooms(int number_, int seats_, int price_)
 {
-	numero = numero_;
-	butacas = butacas_;
-	precio = precio_;
+	number = number_;
+	seats = seats_;
+	price = price_;
 }
 
-int sala::getNumero()
+int Rooms::getNumber()
 {
-	return numero;
+	return number;
 }
 
-void sala::toString()
+void Rooms::toString()
 {
-	cout <<YELLOW<< "Numero de sala --> " <<RED<<numero << endl;
-	cout <<YELLOW<< "Numero de butacas --> " <<RED<<butacas << endl;
-	cout <<YELLOW<< "Precio de la sala --> " <<RED<< precio <<RESET<<endl;
+	cout <<YELLOW<< "Numero de sala --> " <<RED<<number << endl;
+	cout <<YELLOW<< "Numero de butacas --> " <<RED<<seats << endl;
+	cout <<YELLOW<< "Precio de la sala --> " <<RED<< price <<RESET<<endl;
 	cout << endl;
 }
 
-int sala::getPrecio()
+int Rooms::getPrice()
 {
-	return precio;
+	return price;
 }
 
-void sala::setButacas(int butacas_)
+void Rooms::setSeats(int seats_)
 {
-	butacas = butacas_;
+	seats = seats_;
 }
 
-void sala::reducirButacas()
+void Rooms::reduceSeats()
 {
-	butacas--;
+	seats--;
 }
 
-sala::~sala()
+Rooms::~Rooms()
 {
 }

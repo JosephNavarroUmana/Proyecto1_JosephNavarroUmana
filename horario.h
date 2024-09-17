@@ -2,17 +2,17 @@
 #include<iostream>
 using namespace std;
 
-class horarios
+class Schedules
 {
 private:
-	string fecha;
-	string firtsHorario;
-	string segundoHorario;
+	string date;
+	string firstTime;
+	string secondTime;
 public:
-	horarios();
-	horarios(string fecha_, string firtsHorario, string segundoHorario);
-	string getFirtsHorario();
+	Schedules();
+	Schedules(string date_, string firstTime_, string secondTime_);
+	string getFirstTime();
 	void toString();
-	~horarios();
-	bool faltan30Minutos();
+	~Schedules();
+	bool isLessThan30MinutesRemaining();
 };

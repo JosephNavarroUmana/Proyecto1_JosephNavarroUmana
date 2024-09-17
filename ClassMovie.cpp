@@ -4,39 +4,39 @@
 #include"sala.h"
 #include"horario.h"
 
-pelicula::pelicula()
+Movie::Movie()
 {
-	nombre = " ";
+	name = " ";
 	year = 0;
 	duration = 0;
 	country = " ";
 	review = " ";
 }
 
-pelicula::pelicula(string nombre_, int year_, int duration_, string country_, string review_)
+Movie::Movie(string name_, int year_, int duration_, string country_, string review_)
 {
-	nombre = nombre_;
+	name = name_;
 	year = year_;
 	duration = duration_;
 	country = country_;
 	review = review_;
 }
 
-void pelicula::setNombre(string nombre_) {
-	nombre = nombre_;
+void Movie::setName(string name_) {
+	name = name_;
 }
 
-pelicula::~pelicula()
+Movie::~Movie()
 {
 }
 
-string pelicula::getNombre() {
-	return nombre;
+string Movie::getName() {
+	return name;
 }
 
-void pelicula::toString()
+void Movie::toString()
 {
-	cout <<YELLOW<< "Pelicula: " <<GREEN<< nombre <<RESET<< endl;
+	cout <<YELLOW<< "Pelicula: " <<GREEN<< name <<RESET<< endl;
 	cout <<YELLOW<< "Emision: " <<GREEN<< year <<RESET<< endl;
 	cout <<YELLOW<< "Duracion: " <<GREEN<< duration <<RESET<< endl;
 	cout <<YELLOW<< "Pais de origen: " <<GREEN<< country <<RESET<< endl;

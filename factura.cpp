@@ -8,56 +8,55 @@
 using namespace std;
 
 
-factura::factura()
+Invoice::Invoice()
 {
-
-	cedula = 0;
-	tarjeta = 0;
+	ID = 0;
+	card = 0;
 }
 
-factura::~factura()
+Invoice::~Invoice()
 {
 }
 
-void factura::setCedula(int cedula_)
+void Invoice::setID(int ID_)
 {
-		cedula = cedula_;
+		ID = ID_;
 }
 
-void factura::setTarjeta(int tarjeta_)
+void Invoice::setCard(int Card_)
 {
-	tarjeta = tarjeta_;
+	card = Card_;
 }
 
-int factura::getCedula()
+int Invoice::getID()
 {
-	return cedula;
+	return ID;
 }
 
-int factura::getTarjeta()
+int Invoice::getCard()
 {
-	return tarjeta;
+	return card;
 }
 
-void factura::voucher(horarios vectorhorarios[], pelicula vectorPeliculas[], sala vectorSalas[], int salaSeleccionada,int horarioSeleccionado, int codigoGenerado)
+void Invoice::voucher(Schedules vectorSchedule[], Movie vectorMovies[], Rooms vectorRooms[], int roomSelected,int scheduleSelected, int code_)
 {
-    int codigo;
+    int codeAux;
         cout << BLUE << "\t\t\t\t\tDigite el codigo dado en su compra: " << RESET;
-        cin >> codigo;
+        cin >> codeAux;
         
-        if (codigo == codigoGenerado) {
+        if (codeAux == code_) {
             system("cls");
             cout << YELLOW << "\n\t\t\t\t+===========================================+" << endl;
             cout << "\t\t\t\t|           " << GREEN << "CINEMAX WEB - FACTURA" << RESET << YELLOW << "           |" << endl;
             cout << "\t\t\t\t+===========================================+" << RESET << endl;
 
-            cout << YELLOW << "\t\t\t\t| Numero de Factura: " << GREEN << codigo << YELLOW << "\t\t    |" << endl;
+            cout << YELLOW << "\t\t\t\t| Numero de Factura: " << GREEN << codeAux << YELLOW << "\t\t    |" << endl;
             cout << "\t\t\t\t| Fecha: " << GREEN << "18/09/2024" << YELLOW << "                         |" << endl;
-            cout << "\t\t\t\t| Cedula: " << GREEN << cedula << YELLOW << "            \t\t    |" << endl;
-            cout << "\t\t\t\t| Pelicula: " << GREEN << vectorPeliculas[salaSeleccionada].getNombre() << YELLOW << "\t\t    |" << endl;
-            cout << "\t\t\t\t| Sala: " << GREEN << vectorSalas[salaSeleccionada].getNumero() << YELLOW << "\t\t\t\t    |" << endl;
-            cout << "\t\t\t\t| Horario: " << GREEN << vectorhorarios[horarioSeleccionado].getFirtsHorario() << YELLOW << "\t\t\t\t    |" << endl;
-            cout << "\t\t\t\t| Precio por Entrada: " << GREEN << "$" << vectorSalas[salaSeleccionada].getPrecio() << YELLOW << "\t\t    |" << endl;
+            cout << "\t\t\t\t| Cedula: " << GREEN << ID << YELLOW << "            \t\t    |" << endl;
+            cout << "\t\t\t\t| Pelicula: " << GREEN << vectorMovies[roomSelected].getName() << YELLOW << "\t\t    |" << endl;
+            cout << "\t\t\t\t| Sala: " << GREEN << vectorRooms[roomSelected].getNumber() << YELLOW << "\t\t\t\t    |" << endl;
+            cout << "\t\t\t\t| Horario: " << GREEN << vectorSchedule[scheduleSelected].getFirstTime() << YELLOW << "\t\t\t\t    |" << endl;
+            cout << "\t\t\t\t| Precio por Entrada: " << GREEN << "$" << vectorRooms[roomSelected].getPrice() << YELLOW << "\t\t    |" << endl;
             cout << "\t\t\t\t+===========================================+" << endl;
             cout << "\t\t\t\t|" << GREEN << "Gracias por su compra! Disfrute la pelicula" << RESET << YELLOW << "|" << endl;
             cout << "\t\t\t\t+===========================================+" << RESET << endl;

@@ -5,16 +5,16 @@
 #include"sala.h"
 #include"horario.h"
 
-class factura {
+class Invoice {
 private:
-	int cedula;
-	int tarjeta;
+	int ID;
+	int card;
 public:
-	factura();
-	~factura();
-	void setCedula(int cedula_);
-	void setTarjeta(int tarjeta_);
-	int getCedula();
-	int getTarjeta();
-	void voucher(horarios vectorHorarios[],pelicula vectorPelicula[], sala vectorSalas[], int salaSeleccionada,int horarioSeleccionado, int codigoGenerado);
+	Invoice();
+	~Invoice();
+	void setID(int ID_);
+	void setCard(int card_);
+	int getID();
+	int getCard();
+	void voucher(Schedules vectorSchedule[],Movie vectorMovie[], Rooms vectorRooms[], int roomSeleted,int scheduleSelected, int code_);
 };

@@ -8,10 +8,10 @@
 
 using namespace std;
 
-const int LIMIT_MATRIZ = 6;
-const int NUMERO_HORARIOS = 3;
-const int NUMERO_SALAS = 4;
-const int NUMERO_PELICULAS = 4;
+const int LIMIT_MATRIX = 6;
+const int NUMBER_TIME = 3;
+const int NUMBER_ROOMS = 4;
+const int NUMBER_MOVIE = 4;
 
 #define PINK "\033[35m"
 #define RESET   "\033[0m"
@@ -20,25 +20,24 @@ const int NUMERO_PELICULAS = 4;
 #define YELLOW  "\033[33m"     
 #define BLUE    "\033[34m"      
 
-class cinema
+class Cinema
 {
 private:
-	int matriz[NUMERO_SALAS][LIMIT_MATRIZ][LIMIT_MATRIZ][NUMERO_HORARIOS];
-	int codigo;
-	int peliculaSeleccionada;
-	int horarioSeleccionnado;
+	int matrix[NUMBER_ROOMS][LIMIT_MATRIX][LIMIT_MATRIX][NUMBER_TIME];
+	int code;
+	int movieSelected;
+	int timeSelected;
 	
 public:
-	cinema();
-	~cinema();
-	int getCodigo();
-	void toString(int peliculaSeleccionada, int horario);
-	bool setUbicacion(int Sala, int fila, int columna, int horario);
-	int identificar(char columna);
-	void decoracion();
-	void archivo(int &menu);
-	void mantenimiento(int menu, pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[]);
-	void reserva(pelicula vectorPelis[], horarios vectorHorarios[], sala VectorSalas[], factura &factura1, int salida, int fila, char columna, int targeta);
-	int generarCodigo();
-	void venta(bool validar, factura primeraFactura, sala vectorSalas[], pelicula vectorPeliculas[], horarios vectorHorarios[]);
+	Cinema();
+	~Cinema();
+	void toString(int movieSelected, int scheduleSelected);
+	bool setLocation(int room, int row, int column, int scheduleSelected);
+	int identifyLetter(char columna);
+	void decorate();
+	void file(int &menu);
+	void maintenance(int menu, Movie vectorMovies[], Schedules vectorSchedule[], Rooms vectorRooms[]);
+	void reservation(Movie vectorMovies[], Schedules vectorSchedule[], Rooms vectorRooms[], Invoice &firstVoucher);
+	int generateCode();
+	void sale(bool validate, Invoice firstVoucher, Rooms vectorRooms[], Movie vectorMovies[], Schedules vectorSchedule[]);
 };
