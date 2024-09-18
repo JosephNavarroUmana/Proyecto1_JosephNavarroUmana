@@ -31,24 +31,23 @@ Schedules::~Schedules()
 }
 
 bool Schedules::isLessThan30MinutesRemaining() {
-    time_t tiempoActual = time(0);
-    tm horaLocal; 
+    time_t ActualTime = time(0);
+    tm localTime; 
 
-    localtime_s(&horaLocal, &tiempoActual); 
+    localtime_s(&localTime, &ActualTime); 
 
-    int hora, minutos;
+    int hours, minutes;
     stringstream ss(firstTime); 
-    char separador;
-    ss >> hora >> separador >> minutos; 
+    ss >> hours >>  minutes; 
 
-    tm horaIngresada = horaLocal;
-    horaIngresada.tm_hour = hora;
-    horaIngresada.tm_min = minutos;
+    tm horaIngresada = localTime;
+    horaIngresada.tm_hour = hours;
+    horaIngresada.tm_min = minutes;
     horaIngresada.tm_sec = 0;
 
     time_t tiempoIngresado = mktime(&horaIngresada);
 
-    double diferenciaSegundos = difftime(tiempoIngresado, tiempoActual);
+    double diferenciaSegundos = difftime(tiempoIngresado, ActualTime);
 
     if (diferenciaSegundos <= 1800 && diferenciaSegundos > 0) {
         return false; 
