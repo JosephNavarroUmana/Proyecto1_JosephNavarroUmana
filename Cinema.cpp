@@ -9,11 +9,12 @@
 using namespace std;
 
 Cinema::Cinema() {
+	srand(time(NULL));
 	for (int i = 0; i < NUMBER_ROOMS; i++) {
 		for (int j = 0; j < NUMBER_TIME; j++) {
 			for (int k = 0; k < LIMIT_MATRIX; k++) {
 				for (int l = 0; l < LIMIT_MATRIX; l++) {
-					matrix[i][k][l][j] = rand()% 2;
+					matrix[i][k][l][j] = rand()% 3;
 				}
 			}
 		}
@@ -28,56 +29,26 @@ Cinema::~Cinema()
 }
 
 int Cinema::generateCode() {
-	srand(time(0)); 
+	
 	code = rand() % 1000000 + 100000; 
 	return code;
 }
 
-void Cinema::toString(int movieSelected, int scheduleSelected) {
-	cout << "\t\t\t\t\t" << " +";
-	for (int i = 0; i < LIMIT_MATRIX; ++i) {
-		cout << "---+";
-	}
-	cout << endl;
-
-	for (int i = 0; i < LIMIT_MATRIX; ++i) {
-		cout <<"\t\t\t\t\t" << i + 1 << "|";
-
-		for (int j = 0; j < LIMIT_MATRIX; ++j) {
-			if (matrix[movieSelected][i][j][scheduleSelected] == 1) {
-				cout << "\033[41m   \033[0m|"; 
-			}
-			else {
-				cout << "\033[42m   \033[0m|"; 
-			}
-		}
-		cout << endl;
-
-		cout <<"\t\t\t\t\t" << " +";
-		for (int k = 0; k < LIMIT_MATRIX; ++k) {
-			cout << "---+";
-		}
-		cout << endl;
-	}
-
-	cout << "\t\t\t\t\t" << "  ";
-	for (char c = 'A'; c < 'A' + LIMIT_MATRIX; ++c) {
-		cout << " " << c << "  ";
-	}
-	cout << endl;
-}
-
-bool Cinema::setLocation(int movieSelected, int row, int column, int scheduleSelected) {
-	if (movieSelected < 0 || movieSelected >= NUMBER_ROOMS || column < 0 || column >= LIMIT_MATRIX || row < 0 || row >= LIMIT_MATRIX || scheduleSelected < 0 || scheduleSelected >= 4) {
+bool Cinema::setLocation(int state, int row, int column) {
+	if (movieSelected < 0 || movieSelected >= NUMBER_ROOMS || column < 0 || column >= LIMIT_MATRIX || row < 0 || row >= LIMIT_MATRIX || timeSelected < 0 || timeSelected >= 4) {
 		cout << RED << "\t\t\t\tEsta fuera de los limites " << RESET << endl;
 		return false;
 	}
-	else if (matrix[movieSelected][row][column][scheduleSelected] == 1) {
+	else if (matrix[movieSelected][row][column][timeSelected] == 1) {
 		cout << RED << "\t\t\t\tEse espacio ya esta ocupado elija otro " << RESET << endl;
 		return false;
 	}
+	else if(state == 1){
+		matrix[movieSelected][row][column][timeSelected] = 1;
+		return true;
+	}
 	else {
-		matrix[movieSelected][row][column][scheduleSelected] = 1;
+		matrix[movieSelected][row][column][timeSelected] = 2;
 		return true;
 	}
 }
@@ -174,25 +145,75 @@ void Cinema::maintenance(int menu, Movie vectorMovie[], Schedules vectorSchedule
 		break;
 	}
 }
-
-void Cinema::reservation(Movie vectorMovie[], Schedules vectorSchedule[], Rooms vectorRooms[], Invoice& firstVoucher) {
-	int cedula, tarjeta, fila;
-	char columna;
-	bool isValid = false;
-	int movieSelected, timeSelected;
-
+///
+void Cinema::saveState(int estado) {
+	int entradas;
 	decorate();
+	cout <<BLUE<<"\t\t\t\tCantidad de entradas: "<<RESET<<endl;
+	decorate();
+	cin >> entradas;
+	for (int i = 0; i < entradas; i++) {
+		system("cls");
+		toString();
+
+		int auxF;
+		char auxC;
+		bool seatSelected = false; 
+
+		while (!seatSelected) {
+			cout << YELLOW << "\t\t\t\tEscriba la fila " << GREEN << "(1,6): ";
+			cin >> auxF;
+			cout << YELLOW << "\t\t\t\tEscriba la columna " << GREEN << "(a,f): ";
+			cin >> auxC;
+
+			int row = auxF - 1; 
+			int column = identifyLetter(auxC);
+
+			if (setLocation(estado, row, column)) {
+				seatSelected = true; 
+				cout << GREEN << "\t\t\t\tEl asiento numero " << i + 1 << " fue reservado con exito" << RESET << endl;
+			}
+			else {
+				cout << RED << "\t\t\t\tPor favor seleccione otro asiento." << RESET << endl;
+			}
+		}
+
+		toString();
+		system("pause");
+		decorate();
+	}
+}
+
+//
+void Cinema::changeState(int movieSelected, int row, char column, int scheduleSelected) {
+	int columnaIndex = identifyLetter(column);
+	matrix[movieSelected][row][columnaIndex][scheduleSelected] = 1;
+
+}
+
+void Cinema::reservation(Movie vectorMovies[], Schedules vectorSchedule[], Rooms vectorRooms[], Invoice& firstVoucher) {
+	int movieSelected, timeSelected, fila, columna;
+	int estado, cedula, tarjeta;
+	bool isValid = false;
+
+	code = generateCode();
+	decorate();
+	cout << BLUE << "\t\t\t\tSeleccione una pelicula: " <<RESET<<endl;
+	decorate(); 
 	for (int i = 0; i < NUMBER_MOVIE; i++) {
-		cout << YELLOW << "\t\t\t\t\t" << i + 1 << " - " << BLUE << vectorMovie[i].getName() << endl;
+		cout << YELLOW << "\t\t\t\t\t" << i + 1 << " - " << BLUE << vectorMovies[i].getName() << endl;
 	}
 	decorate();
-
 	cin >> movieSelected;
-	cout << YELLOW << "\t\t\t\tLa " << GREEN << "sala" << YELLOW << " para la pelicula es la numero: " << GREEN << vectorRooms[movieSelected - 1].getNumber() << endl;
+	if (movieSelected < 1 || movieSelected > NUMBER_MOVIE) {
+		cout << RED << "Selección invalida. Por favor elija una pelicula correcta." << RESET << endl;
+		return;
+	}
+
+	cout << YELLOW << "\t\t\t\tLa sala para la pelicula es la numero: " << GREEN << vectorRooms[movieSelected - 1].getNumber() << endl;
 	decorate();
 	system("pause");
 	system("cls");
-	decorate();
 
 	while (!isValid) {
 		system("cls");
@@ -204,8 +225,14 @@ void Cinema::reservation(Movie vectorMovie[], Schedules vectorSchedule[], Rooms 
 		}
 		decorate();
 		cin >> timeSelected;
+
+		if (timeSelected < 1 || timeSelected > NUMBER_TIME) {
+			cout << RED << "\t\t\t\tSeleccion invalida. Por favor elija un horario correcto." << RESET << endl;
+			continue;
+		}
+
 		if (vectorSchedule[timeSelected - 1].isLessThan30MinutesRemaining()) {
-			cout << YELLOW << "\t\t\t\tEl " << GREEN << "horario " << YELLOW << "seleccionado para la funcion es: " << GREEN << vectorSchedule[timeSelected - 1].getFirstTime() << endl;
+			cout << YELLOW << "\t\t\t\tEl horario seleccionado para la funcion es: " << GREEN << vectorSchedule[timeSelected - 1].getFirstTime() << endl;
 			decorate();
 			isValid = true;
 		}
@@ -215,67 +242,84 @@ void Cinema::reservation(Movie vectorMovie[], Schedules vectorSchedule[], Rooms 
 		system("pause");
 	}
 
-	isValid = false;
+	int action;
 	system("cls");
 	decorate();
-	cout << YELLOW << "\t\t\t\tSeleccione la butaca" << endl << RESET;
+	cout << "\t\t\t\tQue desea hacer? " << endl;
 	decorate();
-	toString(movieSelected - 1, timeSelected - 1);
+	cout <<YELLOW<<"\t\t\t\t1 - Comprar" << endl;
+	cout <<"\t\t\t\t2 - Reservar" <<RESET<<endl;
 	decorate();
+	cin >> action;
 
-	while (!isValid) {
-		cout << YELLOW << "\t\t\t\tEscriba la fila " << GREEN << "(1,6): ";
-		cin >> fila;
-		cout << YELLOW << "\t\t\t\tEscriba la columna " << GREEN << "(a,f): ";
-		cin >> columna;
-		if (setLocation(movieSelected - 1, fila - 1, identifyLetter(columna), timeSelected - 1)) {
-			isValid = true;
+	if (action == 1) {
+		decorate();
+		cout <<YELLOW<<"\t\t\t\tTiene una reserva previa?" << endl;
+		cout << "\t\t\t\t1 - Si" << endl;
+		cout << "\t\t\t\t2 - No" <<RESET<<endl;
+		decorate();
+		cin >> action;
+		if (action == 1) {
+			int inputCode;
+			decorate();
+			cout <<BLUE<<"\t\t\t\tDigite el codigo de la factura: " <<RESET;
+			cin >> inputCode; cout << endl;
+			decorate();
+			if (inputCode == code) {
+				cout << "\t\t\t\tSe canjeó su asiento" << endl;
+				//changeState(movieSelected - 1, fila, columna, timeSelected - 1);
+			}
+			else {
+				cout << RED << "\t\t\t\tCodigo incorrecto" << RESET << endl;
+			}
 		}
 		else {
-			cout << RED << "\t\t\t\tUbicacion no valida, intente de nuevo." << RESET << endl;
+			estado = 1;
+			saveState(estado);
 		}
+	}
+	else if (action == 2) {
+		estado = 1;
+		saveState(estado);
+	}
+	else {
+		cout << RED << "\t\t\t\tOpcion no valida." << RESET << endl;
+		return;
 	}
 
 	system("cls");
 	decorate();
-	cout << GREEN << "\t\t\t\tEl asiento fue reservado" << RESET << endl;
-	toString(movieSelected - 1, timeSelected - 1);
-	decorate();
-	system("pause");
-	system("cls");
-	decorate();
-	cout << BLUE << "\t\t\t\tNumero de sala --> " << GREEN << vectorRooms[movieSelected - 1].getNumber() << endl;
-	cout << BLUE << "\t\t\t\tPelicula seleccionada --> " << GREEN << vectorMovie[movieSelected - 1].getName() << endl;
-	cout << BLUE << "\t\t\t\tHora de la funcion --> " << GREEN << vectorSchedule[timeSelected - 1].getFirstTime() << endl;
+	cout << BLUE << "\t\t\t\tNúmero de sala --> " << GREEN << vectorRooms[movieSelected - 1].getNumber() << endl;
+	cout << BLUE << "\t\t\t\tPelícula seleccionada --> " << GREEN << vectorMovies[movieSelected - 1].getName() << endl;
+	cout << BLUE << "\t\t\t\tHora de la función --> " << GREEN << vectorSchedule[timeSelected - 1].getFirstTime() << endl;
 	decorate();
 
 	do {
 		cout << YELLOW << "\t\t\t\tDigite su cedula: " << RESET;
 		cin >> cedula;
-		if (cedula > 99999999) {
-			firstVoucher.setID(cedula);
+		if (cedula <= 99999999) {
+			cout << RED << "Debe digitar una cedula con mas de 9 digitos" << RESET << endl;
 		}
 		else {
-			cout << RED << "\t\t\t\tDebe digitar una cedula con mas de 9 digitos" << RESET << endl;
+			firstVoucher.setID(cedula);
 		}
 	} while (cedula <= 99999999);
 
 	do {
 		cout << YELLOW << "\t\t\t\tDigite el numero de su tarjeta: " << RESET;
 		cin >> tarjeta;
-		if (tarjeta > 99999999) {
-			firstVoucher.setCard(tarjeta);
+		if (tarjeta <= 99999999) {
+			cout << RED << "Debe digitar una tarjeta con mas de 9 digitos" << RESET << endl;
 		}
 		else {
-			cout << RED << "\t\t\t\tDebe digitar una tarjeta con mas de 9 digitos" << RESET << endl;
+			firstVoucher.setCard(tarjeta);
 		}
 	} while (tarjeta <= 99999999);
 
-	code = generateCode();
 	cout << GREEN << "\t\t\t\tEl codigo de su factura es " << BLUE << code << endl << RESET;
 	vectorRooms[movieSelected - 1].reduceSeats();
 	decorate();
-	toString(movieSelected - 1, timeSelected - 1);
+	toString();
 	decorate();
 }
 
@@ -283,7 +327,7 @@ void Cinema::sale(bool validate, Invoice firstVoucher, Rooms vectorRooms[], Movi
 
 	if (validate != true) {
 		decorate();
-		firstVoucher.voucher(vectorSchedule, vectorMovies, vectorRooms, movieSelected - 1, timeSelected-1, code);
+		firstVoucher.voucher(vectorSchedule, vectorMovies, vectorRooms, movieSelected, timeSelected, code);
 		decorate();
 	}
 	else {
@@ -291,4 +335,41 @@ void Cinema::sale(bool validate, Invoice firstVoucher, Rooms vectorRooms[], Movi
 		cout <<RED<< "\t\t\t\t\tRealize una compra primero" <<RESET<<endl;
 		decorate();
 	}
+}
+
+void Cinema::toString() {
+	cout << "\t\t\t\t\t" << " +";
+	for (int i = 0; i < LIMIT_MATRIX; ++i) {
+		cout << "---+";
+	}
+	cout << endl;
+
+	for (int i = 0; i < LIMIT_MATRIX; ++i) {
+		cout << "\t\t\t\t\t" << i + 1 << "|";
+		for (int j = 0; j < LIMIT_MATRIX; ++j) {
+			if (matrix[movieSelected][i][j][timeSelected] == 1) {
+				cout << "\033[41m   \033[0m|"; // Ocupado
+			}
+			else if (matrix[movieSelected][i][j][timeSelected] == 2) {
+				cout << "\033[43m   \033[0m|"; // Reservado
+			}
+			else {
+				cout << "\033[42m   \033[0m|"; // Libre
+			}
+
+		}
+		cout << endl;
+
+		cout << "\t\t\t\t\t" << " +";
+		for (int k = 0; k < LIMIT_MATRIX; ++k) {
+			cout << "---+";
+		}
+		cout << endl;
+	}
+
+	cout << "\t\t\t\t\t" << "  ";
+	for (char c = 'A'; c < 'A' + LIMIT_MATRIX; ++c) {
+		cout << " " << c << "  ";
+	}
+	cout << endl;
 }

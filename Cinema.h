@@ -31,8 +31,8 @@ private:
 public:
 	Cinema();
 	~Cinema();
-	void toString(int movieSelected, int scheduleSelected);
-	bool setLocation(int room, int row, int column, int scheduleSelected);
+	void toString();
+	bool setLocation(int room, int row, int column);
 	int identifyLetter(char columna);
 	void decorate();
 	void file(int &menu);
@@ -40,4 +40,7 @@ public:
 	void reservation(Movie vectorMovies[], Schedules vectorSchedule[], Rooms vectorRooms[], Invoice &firstVoucher);
 	int generateCode();
 	void sale(bool validate, Invoice firstVoucher, Rooms vectorRooms[], Movie vectorMovies[], Schedules vectorSchedule[]);
+	void saveState(int estado);
+	void changeState(int movieSelected, int row, char column, int scheduleSelected);
+
 };
